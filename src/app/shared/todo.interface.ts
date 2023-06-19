@@ -1,3 +1,3 @@
-export interface TodoModel {
-  todo: string;
+export interface TodoInterface {
+  description: string;
 }

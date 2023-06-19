@@ -1,0 +1,16 @@
+<div class="todo">
+  <div class="todo__list">
+    <h1>Todo List</h1>
+  </div>
+  <div class="todo__card">
+    <div class="todo__input">
+      <input type="text" class="form-control" placeholder="activity" [(ngModel)]="todoElem">
+      <button class="todo__btn" (click)="onElemAdd()">Add</button>
+    </div>
+    <ul class="todo__elements">
+      <li class="todo__element" *ngFor="let todo of todosArray">
+        <span class="todo__span">{{todo}}</span>
+      </li>
+    </ul>
+  </div>
+</div>
