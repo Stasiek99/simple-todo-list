@@ -1,16 +1,17 @@
 <div class="todo">
-  <div class="todo__list">
-    <h1>Todo List</h1>
-  </div>
-  <div class="todo__card">
-    <div class="todo__input">
-      <input type="text" class="form-control" placeholder="activity" [(ngModel)]="todoElem">
-      <button class="todo__btn" (click)="onElemAdd()">Add</button>
+    <div class="todo-input">
+      <input type="text" class="form-control" placeholder="add a task" [(ngModel)]="todoElem">
+      <button class="todo-input__btn" (click)="onElemAdded()">Add</button>
     </div>
-    <ul class="todo__elements">
-      <li class="todo__element" *ngFor="let todo of todosArray">
-        <span class="todo__span">{{todo}}</span>
-      </li>
-    </ul>
-  </div>
+    <div *ngFor="let todo of todosArray; let i = index">
+      <div *ngIf="!todo.editing">
+        <span>{{ todo.description }}</span>
+        <button (click)="onElemEdit(i)">Edit</button>
+        <button (click)="onElemDeleted(i)">Delete</button>
+      </div>
+      <div *ngIf="todo.editing">
+        <input type="text" [(ngModel)]="todo.description">
+        <button (click)="onElemSave(i)">Save</button>
+      </div>
+    </div>
 </div>
