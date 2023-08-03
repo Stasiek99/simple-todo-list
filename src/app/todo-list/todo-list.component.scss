@@ -1,7 +1,16 @@
 .todo {
-  height: 70vh;
+  justify-items: center;
+  height: 100%;
   width: 50vw;
   border: solid red;
   margin-right: auto;
   margin-left: auto;
+}
+
+.todo-input {
+  justify-content: center;
+}
+
+mat-grid-tile {
+  background: lightblue;
 }
