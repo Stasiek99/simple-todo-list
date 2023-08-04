@@ -8,10 +8,6 @@
       <input matInput type="text">
       <button mat-button color="basic" (click)="onElemAdded()">Add</button>
     </mat-form-field>
-
-
-
-
     <mat-grid-list *ngFor="let todo of todosArray; let i = index" cols="1" rowHeight="9:1">
       <mat-grid-tile *ngIf="!todo.editing">
         <span>{{ todo.description }}</span>
