@@ -12,10 +12,12 @@ import { TodoListModule } from "./todo-list/todo-list.module";
 import { SignupModule } from "./signup/signup.module";
 import { LoginModule } from "./login/login.module";
 import { GeneralModule } from "./general/general.module";
+import { UserPresentationComponent } from './user-presentation/user-presentation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    UserPresentationComponent,
   ],
   imports: [
     BrowserModule,
