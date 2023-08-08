@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 import { TodoListComponent } from "./todo-list/todo-list.component";
-import { SignupComponent } from "./signup/signup.component";
+import { SignupComponent } from "./signup/components/signup/signup.component";
 
 export const routeConfig: Routes = [
   {path: "", redirectTo: "todolist", pathMatch: "full"},
