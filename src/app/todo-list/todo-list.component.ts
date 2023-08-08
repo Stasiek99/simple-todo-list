@@ -23,13 +23,6 @@ export class TodoListComponent implements OnInit{
     this.todosArray.push(newTodo);
     localStorage.setItem("todoElements", JSON.stringify(this.todosArray));
     this.todoElem = "";
-
-
-
-    // const elementJSON: string = JSON.stringify(this.todoElem);
-    // this.todosArray.push(elementJSON);
-    // localStorage.setItem("todoElements", JSON.stringify(this.todosArray));
-    // this.todoElem = "";
   }
 
   onElemDeleted(index: number): void {

@@ -1,21 +1,26 @@
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
 import { MatInputModule } from "@angular/material/input";
-import { SignupComponent } from "./components/signup/signup.component";
 import { MatButtonModule } from "@angular/material/button";
-import { SignupDialogComponent } from './components/signup-dialog/signup-dialog.component';
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatIconModule } from "@angular/material/icon";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+
+import { SignupComponent } from "./components/signup/signup.component";
+import { SignupDialogComponent } from './components/signup-dialog/signup-dialog.component';
+import { SignupSnackbarComponent } from './components/signup-snackbar/signup-snackbar.component';
 
 @NgModule({
-  declarations: [SignupComponent, SignupDialogComponent],
+  declarations: [SignupComponent, SignupDialogComponent, SignupSnackbarComponent],
   imports: [
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatIconModule,
+    MatSnackBarModule
   ],
   exports: [SignupComponent]
 })
