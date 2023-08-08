@@ -1,5 +1,5 @@
 <div class="userdata">
-  <form [formGroup]="newUserForm" (ngSubmit)="redirectToTodoList()" class="form">
+  <form [formGroup]="newUserForm" (ngSubmit)="openDialog('3000ms', '1500ms')" class="form">
     <mat-form-field appearance="outline" class="input-width">
       <mat-label>Name</mat-label>
       <input matInput placeholder="Name" type="text" formControlName="name">
