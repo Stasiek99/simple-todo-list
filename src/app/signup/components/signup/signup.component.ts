@@ -6,6 +6,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 
 import { SignupDialogComponent } from "../signup-dialog/signup-dialog.component";
 import { SignupSnackbarComponent } from "../signup-snackbar/signup-snackbar.component";
+import { UserLocalStorageService } from "../../../user/user-local-storage.service";
 
 @Component({
   selector: 'app-signup',
@@ -22,7 +23,7 @@ export class SignupComponent {
   });
 
   durationInSeconds: number = 5;
-  constructor(private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar) {}
+  constructor(private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar, private userService: UserLocalStorageService) {}
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     let dialogRef = this.dialog.open(SignupDialogComponent, {
@@ -33,6 +34,7 @@ export class SignupComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
+        this.userService.addUser(this.newUserForm.value)
         this.openSnackBar();
         this.redirectToTodoList();
       }
