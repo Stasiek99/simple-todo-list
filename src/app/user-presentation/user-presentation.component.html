@@ -1,1 +1,16 @@
-<p>user-presentation works!</p>
+<ng-container *ngIf="user; else noUser">
+  <div class="user-presentation__container">
+    <div class="user-presentation__">
+      <p>Hello <b>{{user.name}}</b></p>
+      <p>Your id: <b>{{user.id}}</b></p>
+    </div>
+    <div>
+      <p>Your login: <b>{{user.login}}</b></p>
+      <p>Your email: <b>{{user.email}}</b></p>
+    </div>
+  </div>
+</ng-container>
+<ng-template #noUser>
+  <p class="user-not-created">No user has been created</p>
+  <button mat-raised-button (click)="redirectToTodoList()"></button>
+</ng-template>

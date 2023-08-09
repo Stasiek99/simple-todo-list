@@ -34,7 +34,8 @@ export class SignupComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        this.userService.addUser(this.newUserForm.value)
+        this.userService.addUser(this.newUserForm.value);
+        this.selectUser(this.userService.selectedUserId)
         this.openSnackBar();
         this.redirectToTodoList();
       }
@@ -45,6 +46,10 @@ export class SignupComponent {
     this.snackBar.openFromComponent(SignupSnackbarComponent, {
       duration: this.durationInSeconds * 1000
     });
+  }
+
+  selectUser(userId: string): void {
+    this.userService.setSelectedUser(userId);
   }
 
   redirectToTodoList(): void {
