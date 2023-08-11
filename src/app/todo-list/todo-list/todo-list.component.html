@@ -1,17 +1,17 @@
 <div class="todo__add">
-  <mat-form-field class="form-control" [(ngModel)]="todoElem" ngDefaultControl appearance="outline">
+  <mat-form-field class="form-control" [(ngModel)]="todoElem" ngDefaultControl appearance="outline" (keyup.enter)=" onElemAdded()">
     <mat-label>Add Todo</mat-label>
     <input matInput type="text">
   </mat-form-field>
   <button mat-button color="basic" (click)="onElemAdded()">Add</button>
 </div>
   <mat-grid-list *ngFor="let todo of todosArray; let i = index" cols="1" rowHeight="9:1" class="todo-elements">
-      <mat-grid-tile *ngIf="!todo.editing" class="todo-element single-todo">
+      <mat-grid-tile *ngIf="!todo.editing && editingIndex !== i" class="todo-element single-todo">
           <span> {{ todo.description }}</span>
           <button mat-button color="basic" (click)="onElemEdit(i)">Edit</button>
           <button mat-button color="basic" (click)="onElemDeleted(i)">Delete</button>
       </mat-grid-tile>
-      <mat-grid-tile *ngIf="todo.editing" class="todo-element">
+      <mat-grid-tile *ngIf="todo.editing || editingIndex === i" class="todo-element">
         <input matInput type="text" [(ngModel)]="todo.description">
         <button mat-button color="basic" (click)="onElemSave(i)">Save</button>
       </mat-grid-tile>
