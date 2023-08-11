@@ -10,6 +10,7 @@ import {TodoListService} from "../services/todo-list.service";
 export class TodoListComponent implements OnInit{
   todoElem: string = "";
   todosArray: TodoInterface[] = [];
+  editingIndex: number | null = null;
 
   constructor(private todoListService: TodoListService) {}
 
@@ -18,8 +19,10 @@ export class TodoListComponent implements OnInit{
   }
 
   onElemAdded(): void {
-    this.todoListService.addTodo(this.todoElem);
-    this.todoElem = "";
+    if (this.todoElem.trim() !== "") {
+      this.todoListService.addTodo(this.todoElem);
+      this.todoElem = "";
+    }
   }
 
   onElemDeleted(index: number): void {
@@ -27,10 +30,21 @@ export class TodoListComponent implements OnInit{
   }
 
   onElemEdit(index: number): void {
-    this.todoListService.editTodo(index);
+    if (this.editingIndex !== index) {
+      this.todoListService.startEditing(index);
+      this.resetEditing();
+      this.editingIndex = index;}
   }
 
   onElemSave(index: number): void {
-    this.todoListService.saveTodo(index);
+    this.todoListService.finishEditing(index);
+    this.resetEditing();
+  }
+
+  private resetEditing(): void {
+    if (this.editingIndex !== null) {
+      this.todosArray[this.editingIndex].editing = false;
+      this.editingIndex = null;
+    }
   }
 }

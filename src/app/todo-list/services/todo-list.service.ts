@@ -43,12 +43,27 @@ export class TodoListService {
     this.saveTodosToLocalStorage();
   }
 
-  editTodo(index: number): void {
+  startEditing(index: number): void {
+    this.todosArray.forEach((todo, i) => {
+      if (i !== index) {
+        todo.editing = false;
+      }
+    });
     this.todosArray[index].editing = true;
+  }
+
+  finishEditing(index: number): void {
+    this.todosArray[index].editing = false;
+    this.saveTodosToLocalStorage();
   }
 
   saveTodo(index: number): void {
     this.todosArray[index].editing = false;
     this.saveTodosToLocalStorage()
+  }
+
+  getTodoById(id: string): TodoInterface | null {
+    const foundTodo = this.todosArray.find(todo => todo.id === id);
+    return foundTodo || null;
   }
 }
