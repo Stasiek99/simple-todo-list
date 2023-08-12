@@ -10,6 +10,7 @@
           <span> {{ todo.description }}</span>
           <button mat-button color="basic" (click)="onElemEdit(i)">Edit</button>
           <button mat-button color="basic" (click)="onElemDeleted(i)">Delete</button>
+          <button mat-button color="basic" (click)="redirectToTodoListElement(todo.id)">Details</button>
       </mat-grid-tile>
       <mat-grid-tile *ngIf="todo.editing || editingIndex === i" class="todo-element">
         <input matInput type="text" [(ngModel)]="todo.description">

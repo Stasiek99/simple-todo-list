@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+
 import { TodoInterface } from "../../shared/todo.interface";
-import {TodoListService} from "../services/todo-list.service";
+import { TodoListService } from "../services/todo-list.service";
 
 @Component({
   selector: 'app-todo-list',
@@ -12,7 +14,7 @@ export class TodoListComponent implements OnInit{
   todosArray: TodoInterface[] = [];
   editingIndex: number | null = null;
 
-  constructor(private todoListService: TodoListService) {}
+  constructor(private todoListService: TodoListService, private router: Router) {}
 
   ngOnInit(): void {
     this.todosArray = this.todoListService.getTodos();
@@ -46,5 +48,9 @@ export class TodoListComponent implements OnInit{
       this.todosArray[this.editingIndex].editing = false;
       this.editingIndex = null;
     }
+  }
+
+  redirectToTodoListElement(id: string): void {
+    this.router.navigate(["/todolist", id])
   }
 }

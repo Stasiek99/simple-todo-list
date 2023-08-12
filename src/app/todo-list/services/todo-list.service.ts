@@ -16,24 +16,26 @@ export class TodoListService {
   private loadTodosFromLocalStorage(): void {
     const elements: string | null = localStorage.getItem("todoElements");
     if (elements != null) {
-      const parsedElements: TodoInterface[] = JSON.parse(elements);
-      this.todosArray = parsedElements.map((element) => ({
-        ...element,
-        editing: false
-      }));
+      this.todosArray = JSON.parse(elements);
     }
   }
 
-  private saveTodosToLocalStorage(): void {
+  saveTodosToLocalStorage(): void {
     localStorage.setItem("todoElements", JSON.stringify(this.todosArray));
   }
 
   getTodos(): TodoInterface[] {
-    return this.todosArray
+    return this.todosArray;
   }
 
   addTodo(description: string): void {
-    const newTodo: TodoInterface = {id: Date.now().toString(), description, editing: false };
+    const newTodo: TodoInterface = {
+      description,
+      editing: false,
+      status: "undone",
+      date: new Date().toDateString(),
+      id: Date.now().toString()
+    };
     this.todosArray.push(newTodo);
     this.saveTodosToLocalStorage();
   }
@@ -55,11 +57,6 @@ export class TodoListService {
   finishEditing(index: number): void {
     this.todosArray[index].editing = false;
     this.saveTodosToLocalStorage();
-  }
-
-  saveTodo(index: number): void {
-    this.todosArray[index].editing = false;
-    this.saveTodosToLocalStorage()
   }
 
   getTodoById(id: string): TodoInterface | null {
