@@ -5,11 +5,11 @@ import { UserInterface } from "../user/interfaces/user.interface";
 import { UserLocalStorageService } from "../user/user-local-storage.service";
 
 @Component({
-  selector: 'app-user-presentation',
-  templateUrl: './user-presentation.component.html',
-  styleUrls: ['./user-presentation.component.scss']
+  selector: 'app-user-details',
+  templateUrl: './user-details.component.html',
+  styleUrls: ['./user-details.component.scss']
 })
-export class UserPresentationComponent implements OnInit{
+export class UserDetailsComponent implements OnInit{
   user: UserInterface | null = null;
 
   constructor(private userService: UserLocalStorageService, private router: Router) {}
