@@ -1,12 +1,12 @@
 <ng-container *ngIf="user; else noUser">
   <div class="user-presentation__container">
     <div class="user-presentation__">
-      <p>Hello <b>{{user.name}}</b></p>
-      <p>Your id: <b>{{user.id}}</b></p>
+      <p>Hello <b>{{user?.name}}</b></p>
+      <p>Your id: <b>{{user?.id}}</b></p>
     </div>
     <div>
-      <p>Your login: <b>{{user.login}}</b></p>
-      <p>Your email: <b>{{user.email}}</b></p>
+      <p>Your login: <b>{{user?.login}}</b></p>
+      <p>Your email: <b>{{user?.email}}</b></p>
     </div>
   </div>
 </ng-container>
