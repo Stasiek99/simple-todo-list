@@ -6,7 +6,8 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 
 import { SignupDialogComponent } from "../signup-dialog/signup-dialog.component";
 import { SignupSnackbarComponent } from "../signup-snackbar/signup-snackbar.component";
-import { UserLocalStorageService } from "../../../user/user-local-storage.service";
+import { SignupService, UserId } from "../services/singnup.service";
+import { UserInterface } from "../../../user/interfaces/user.interface";
 
 @Component({
   selector: 'app-signup',
@@ -23,7 +24,7 @@ export class SignupComponent {
   });
 
   durationInSeconds: number = 5;
-  constructor(private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar, private userService: UserLocalStorageService) {}
+  constructor(private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar, private signupService: SignupService) {}
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     let dialogRef = this.dialog.open(SignupDialogComponent, {
@@ -34,10 +35,8 @@ export class SignupComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        this.userService.addUser(this.newUserForm.value);
-        this.selectUser(this.userService.selectedUserId)
+        this.onSubmit(this.newUserForm.value);
         this.openSnackBar();
-        this.redirectToTodoList();
       }
     });
   }
@@ -48,11 +47,12 @@ export class SignupComponent {
     });
   }
 
-  selectUser(userId: string): void {
-    this.userService.setSelectedUser(userId);
-  }
-
-  redirectToTodoList(): void {
-    this.router.navigate(["/", "todolist"]);
+  onSubmit(payload: UserInterface): void {
+    const userId: UserId | null = this.signupService.register(payload);
+    if (userId) {
+      this.router.navigate([`/users/${userId}`])
+    } else {
+      console.log("Kolego, coś poszło nie tak")
+    }
   }
 }
