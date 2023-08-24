@@ -10,7 +10,6 @@ import { UserDetailsComponent} from "./user-details.component";
   ],
   imports: [
     MatButtonModule
-
   ],
   exports: [UserDetailsComponent]
 })

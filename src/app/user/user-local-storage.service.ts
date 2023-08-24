@@ -7,9 +7,7 @@ import { UserInterface } from "./interfaces/user.interface";
 })
 
 export class UserLocalStorageService {
-  private readonly userStorageItemKey = "users_list";
-  private selectedUserid: string | null = null;
-  selectedUserId: string = "";
+  private readonly userStorageItemKey: string = "users_list";
 
   private getUserList(): UserInterface[] {
     const objectToParse = window.localStorage.getItem(this.userStorageItemKey);
@@ -22,25 +20,14 @@ export class UserLocalStorageService {
 
   addUser(user: UserInterface): void {
     const userList = this.getUserList();
-    user.id = userList.length.toString();
     userList.push(user);
-    this.selectedUserId = (userList.length -1).toString();
     this.setUserList(userList);
   }
 
-  getUser(userId: string): UserInterface | null {
-    const userList = this.getUserList();
-    const user = userList.find(user => user.id === userId);
-    return user || null;
-  }
-
-  setSelectedUser(userId: string): void {
-    this.selectedUserid = userId;
-  }
-
-  getSelectedUser(): UserInterface | null {
-    return this.selectedUserid ? this.getUser(this.selectedUserid) : null
-  }
+  // setSuperSelectedUser(userId: string): void {
+  //   this.selectedUserid = userId;
+  //   // this.selectedUserid = userId;
+  // }
 
   getUsers(): UserInterface[] {
     return this.getUserList();
@@ -60,21 +47,4 @@ export class UserLocalStorageService {
       this.setUserList(userList);
     }
   }
-
-  // addUser(userValues: UserInterface[]): void {
-  //   window.localStorage.setItem(this.userStorageItemKey, JSON.stringify(userValues));
-  // }
-  //
-  // getUsers(): UserInterface[] | null {
-  //   const objectToParse = window.localStorage.getItem(this.userStorageItemKey);
-  //   return objectToParse ? JSON.parse(objectToParse) : null
-  // }
-  //
-  // deleteLastAddedUser(newList: UserInterface[]): void {
-  //   window.localStorage.setItem(this.userStorageItemKey, JSON.stringify(newList));
-  // }
-  //
-  // editLastAddedUser(editedUser: UserInterface[]): void  {
-  //   window.localStorage.setItem(this.userStorageItemKey, JSON.stringify(editedUser));
-  // }
 }

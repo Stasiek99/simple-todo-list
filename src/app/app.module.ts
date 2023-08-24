@@ -13,8 +13,6 @@ import { UserModule } from "./user-details/user.module";
     AppComponent,
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
     AppRoutingModule,
     TodoListModule,
     SignupModule,
