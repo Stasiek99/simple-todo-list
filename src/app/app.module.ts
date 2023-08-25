@@ -6,7 +6,7 @@ import { TodoListModule } from "./todo-list/todo-list.module";
 import { SignupModule } from "./signup/signup.module";
 import { LoginModule } from "./auth/login/login.module";
 import { GeneralModule } from "./general/general.module";
-import { UserModule } from "./user-details/user.module";
+import { UserModule } from "./user/user.module";
 
 @NgModule({
   declarations: [

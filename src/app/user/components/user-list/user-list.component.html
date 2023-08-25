@@ -1,0 +1,17 @@
+<ng-container *ngIf="usersArray; else noUsers">
+  <div class="user-list-container">
+    <h2>List of Users</h2>
+    <ul class="users">
+      <li class="user" *ngFor="let user of usersArray">
+        {{ user.id }}<span> </span>
+        {{user.name}}
+        <button mat-raised-button (click)="redirectToUserProfile(user.id)">View Details</button>
+      </li>
+    </ul>
+  </div>
+</ng-container>
+
+<ng-template #noUsers>
+  <p class="user-not-created">No user has been created</p>
+  <button mat-raised-button (click)="redirectToTodoList()"></button>
+</ng-template>
