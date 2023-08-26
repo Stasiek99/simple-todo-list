@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { UserId } from "../signup/components/services/singnup.service";
+import { UserId } from "../../signup/services/singnup.service";
 
 @Injectable({
   providedIn: 'root'

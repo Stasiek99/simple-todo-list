@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { TodoListModule } from "./todo-list/todo-list.module";
 import { SignupModule } from "./signup/signup.module";
-import { LoginModule } from "./auth/login/login.module";
+import { LoginModule } from "./auth/components/login.module";
 import { GeneralModule } from "./general/general.module";
 import { UserModule } from "./user/user.module";
 

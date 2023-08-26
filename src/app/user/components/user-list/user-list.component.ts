@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 
 import { UserInterface } from "../../interfaces/user.interface";
-import { UserLocalStorageService } from "../../user-local-storage.service";
+import { UserLocalStorageService } from "../../services/user-local-storage.service";
 
 @Component({
   selector: 'app-user-list',

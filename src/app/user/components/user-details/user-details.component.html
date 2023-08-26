@@ -1,6 +1,6 @@
 <ng-container *ngIf="user; else noUser">
   <div class="user-presentation__container">
-    <h2>Hello <b>{{user?.name}}</b></h2>
+    <h2>Hello <b>{{user.name}}</b></h2>
     <table mat-table [dataSource]="[user]">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Your ID</th>
