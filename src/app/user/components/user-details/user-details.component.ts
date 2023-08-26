@@ -18,6 +18,10 @@ export class UserDetailsComponent implements OnInit{
     this.user = this.currentUserService.getCurrentUser();
   }
 
+  redirectToUserList(): void {
+    this.router.navigate(["/", "users"]);
+  }
+
   redirectToTodoList(): void {
     this.router.navigate(["/", "todolist"]);
   }
