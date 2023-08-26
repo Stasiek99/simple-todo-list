@@ -61,9 +61,9 @@
 import { Injectable } from "@angular/core";
 
 import { UserInterface } from "../../../user/interfaces/user.interface";
+import { UserId } from "./singnup.service";
 import { UserLocalStorageService } from "../../../user/user-local-storage.service";
 import { CurrentLocalStorageService } from "../../../user/current-local-storage.service";
-import { UserId } from "./singnup.service";
 
 @Injectable({
   providedIn: "root"

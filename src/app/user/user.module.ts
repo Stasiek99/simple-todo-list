@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { CommonModule } from "@angular/common";
+import { MatTableModule } from "@angular/material/table";
 
 import { UserDetailsComponent} from "./components/user-details/user-details.component";
 import { UserListComponent } from './components/user-list/user-list.component';
@@ -12,7 +13,8 @@ import { UserListComponent } from './components/user-list/user-list.component';
   ],
   imports: [
     MatButtonModule,
-    CommonModule
+    CommonModule,
+    MatTableModule
   ],
   exports: [UserDetailsComponent]
 })
