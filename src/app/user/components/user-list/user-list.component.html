@@ -16,13 +16,11 @@
           <button mat-raised-button (click)="redirectToUserProfile(user.id)">View Profile</button>
         </td>
       </ng-container>
-
       <tr mat-header-row *matHeaderRowDef="['id', 'name', 'redirect']"></tr>
       <tr mat-row *matRowDef="let row; columns: ['id', 'name', 'redirect']"></tr>
     </table>
   </div>
 </ng-container>
-
 <ng-template #noUsers>
   <p class="user-not-created">No user has been created</p>
   <button mat-raised-button (click)="redirectToTodoList()"></button>
