@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 
 import { UserInterface } from "../../interfaces/user.interface";
-import { CurrentUserService } from "../../../signup/components/services/current-user.service";
+import { CurrentUserService } from "../../../signup/services/current-user.service";
 
 @Component({
   selector: 'app-user-details',

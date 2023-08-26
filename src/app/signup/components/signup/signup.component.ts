@@ -6,7 +6,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 
 import { SignupDialogComponent } from "../signup-dialog/signup-dialog.component";
 import { SignupSnackbarComponent } from "../signup-snackbar/signup-snackbar.component";
-import { SignupService, UserId } from "../services/singnup.service";
+import { SignupService, UserId } from "../../services/singnup.service";
 import { UserInterface } from "../../../user/interfaces/user.interface";
 
 @Component({
