@@ -5,16 +5,20 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {RouterLink} from "@angular/router";
 import {MatToolbarModule} from "@angular/material/toolbar";
+import { HomeComponent } from './home/home.component';
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    HomeComponent
   ],
   imports: [
     MatIconModule,
     MatButtonModule,
     RouterLink,
-    MatToolbarModule
+    MatToolbarModule,
+    MatMenuModule
   ],
   exports: [
     HeaderComponent

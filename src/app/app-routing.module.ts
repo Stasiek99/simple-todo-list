@@ -6,10 +6,12 @@ import { SignupComponent } from "./signup/components/signup/signup.component";
 import { TodoListElementComponent } from "./todo-list/todo-list-element/todo-list-element.component";
 import { UserDetailsComponent } from "./user/components/user-details/user-details.component";
 import { UserListComponent } from "./user/components/user-list/user-list.component";
-import {LoginComponent} from "./auth/components/login/login.component";
+import { LoginComponent } from "./auth/components/login/login.component";
+import { HomeComponent } from "./general/home/home.component";
 
 export const routeConfig: Routes = [
-  {path: "", redirectTo: "todolist", pathMatch: "full"},
+  {path: "", redirectTo: "home", pathMatch: "full"},
+  {path: "home", component: HomeComponent},
   {path: "todolist",
     children:[
       {
