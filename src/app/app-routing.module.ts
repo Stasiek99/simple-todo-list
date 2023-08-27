@@ -7,12 +7,15 @@ import { TodoListElementComponent } from "./todo-list/todo-list-element/todo-lis
 import { UserDetailsComponent } from "./user/components/user-details/user-details.component";
 import { UserListComponent } from "./user/components/user-list/user-list.component";
 import { LoginComponent } from "./auth/components/login/login.component";
-import { HomeComponent } from "./general/home/home.component";
+import { HomeComponent } from "./general/components/home/home.component";
+import { PageNotFoundComponent } from "./general/components/page-not-found/page-not-found.component";
+import { AuthGuard } from "./auth/guards/auth.guard";
 
 export const routeConfig: Routes = [
   {path: "", redirectTo: "home", pathMatch: "full"},
   {path: "home", component: HomeComponent},
-  {path: "todolist",
+  {path: "page-not-found", component: PageNotFoundComponent},
+  {path: "todolist", canActivate: [AuthGuard],
     children:[
       {
         path:"",
@@ -46,6 +49,9 @@ export const routeConfig: Routes = [
       }
     ]
   },
+  {
+    path: "**", redirectTo: "/page-not-found"
+  }
 ];
 
 
