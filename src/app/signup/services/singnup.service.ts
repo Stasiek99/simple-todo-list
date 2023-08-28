@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
+import { Injectable } from "@angular/core";
 
-import {UserInterface} from "../../user/interfaces/user.interface";
-import {UserLocalStorageService} from "../../user/services/user-local-storage.service";
-import {CurrentLocalStorageService} from "../../user/services/current-local-storage.service";
+import { UserInterface } from "../../user/interfaces/user.interface";
+import { UserLocalStorageService}  from "../../user/services/user-local-storage.service";
+import { CurrentLocalStorageService } from "../../user/services/current-local-storage.service";
 
 export type UserId = string
 

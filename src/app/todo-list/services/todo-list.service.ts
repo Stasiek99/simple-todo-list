@@ -2,6 +2,8 @@ import {  Injectable } from "@angular/core";
 
 import { TodoInterface } from "../../shared/todo.interface";
 import { TodoListLocalStorageService } from "./todo-list-local-storage.service";
+import {CurrentUserService} from "../../signup/services/current-user.service";
+import {UserInterface} from "../../user/interfaces/user.interface";
 
 @Injectable({
   providedIn: "root"
@@ -9,17 +11,21 @@ import { TodoListLocalStorageService } from "./todo-list-local-storage.service";
 
 export class TodoListService {
   private todosArray: TodoInterface[] = [];
+  currentUser: UserInterface | null = null;
 
-  constructor(private todoListLocalStorageService: TodoListLocalStorageService) {
-    this.loadTodosFromLocalStorage();
+  constructor(private todoListLocalStorageService: TodoListLocalStorageService, private currentUserService: CurrentUserService) {
+    this.currentUser = this.currentUserService.getCurrentUser();
+    if(this.currentUser) {
+      this.loadTodosFromLocalStorage(this.currentUser.id);
+    }
   }
 
-  private loadTodosFromLocalStorage(): void {
-   this.todosArray = this.todoListLocalStorageService.loadTodosFromLocalStorage();
+  loadTodosFromLocalStorage(userId: string): void {
+   this.todosArray = this.todoListLocalStorageService.loadTodosFromLocalStorage(userId);
   }
 
-  saveTodosToLocalStorage(): void {
-    this.todoListLocalStorageService.saveTodosToLocalStorage(this.todosArray);
+  saveTodosToLocalStorage(userId: string): void {
+    this.todoListLocalStorageService.saveTodosToLocalStorage(userId, this.todosArray);
   }
 
   getTodos(): TodoInterface[] {
@@ -35,12 +41,16 @@ export class TodoListService {
       id: Date.now().toString()
     };
     this.todosArray.push(newTodo);
-    this.saveTodosToLocalStorage();
+    if(this.currentUser) {
+      this.saveTodosToLocalStorage(this.currentUser.id);
+    }
   }
 
   deleteTodo(index: number): void {
     this.todosArray.splice(index, 1);
-    this.saveTodosToLocalStorage();
+    if(this.currentUser) {
+      this.saveTodosToLocalStorage(this.currentUser.id);
+    }
   }
 
   startEditing(index: number): void {
@@ -54,11 +64,13 @@ export class TodoListService {
 
   finishEditing(index: number): void {
     this.todosArray[index].editing = false;
-    this.saveTodosToLocalStorage();
+    if (this.currentUser) {
+      this.saveTodosToLocalStorage(this.currentUser.id);
+    }
   }
 
   getTodoById(id: string): TodoInterface | null {
-    const foundTodo = this.todosArray.find(todo => todo.id === id);
+    const foundTodo: TodoInterface | undefined = this.todosArray.find(todo => todo.id === id);
     return foundTodo || null;
   }
 }
