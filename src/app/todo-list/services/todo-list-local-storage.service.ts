@@ -6,14 +6,19 @@ import { TodoInterface } from "../../shared/todo.interface";
   providedIn: "root"
 })
 export class TodoListLocalStorageService {
-  private readonly todoStorageKey = "todoElements";
+  private readonly todoStorageKeyPrefix = "todoElements";
 
-  loadTodosFromLocalStorage(): TodoInterface[] {
-    const elements: string | null = localStorage.getItem(this.todoStorageKey);
+  loadTodosFromLocalStorage(userId: string): TodoInterface[] {
+    const elements: string | null = localStorage.getItem(`${this.todoStorageKeyPrefix}_${userId}`);
     return elements != null ? JSON.parse(elements) : [];
   }
 
-  saveTodosToLocalStorage(todos: TodoInterface[]): void {
-    localStorage.setItem(this.todoStorageKey, JSON.stringify(todos));
+  saveTodosToLocalStorage(userId: string, todos: TodoInterface[]): void {
+    localStorage.setItem(`${this.todoStorageKeyPrefix}_${userId}`, JSON.stringify(todos));
+  }
+
+  initializeUserTodos(userId: string): void {
+    const initialTodos: TodoInterface[] = [];
+    this.saveTodosToLocalStorage(userId, initialTodos);
   }
 }
