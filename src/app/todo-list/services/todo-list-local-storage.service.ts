@@ -16,9 +16,4 @@ export class TodoListLocalStorageService {
   saveTodosToLocalStorage(userId: string, todos: TodoInterface[]): void {
     localStorage.setItem(`${this.todoStorageKeyPrefix}_${userId}`, JSON.stringify(todos));
   }
-
-  initializeUserTodos(userId: string): void {
-    const initialTodos: TodoInterface[] = [];
-    this.saveTodosToLocalStorage(userId, initialTodos);
-  }
 }

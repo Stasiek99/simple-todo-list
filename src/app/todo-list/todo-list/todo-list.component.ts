@@ -3,8 +3,8 @@ import { Router } from "@angular/router";
 
 import { TodoInterface } from "../../shared/todo.interface";
 import { TodoListService } from "../services/todo-list.service";
-import {CurrentUserService} from "../../signup/services/current-user.service";
-import {UserInterface} from "../../user/interfaces/user.interface";
+import { CurrentUserService } from "../../signup/services/current-user.service";
+import { UserInterface } from "../../user/interfaces/user.interface";
 
 @Component({
   selector: 'app-todo-list',
