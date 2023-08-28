@@ -1,6 +1,7 @@
 import {  Injectable } from "@angular/core";
 
 import { TodoInterface } from "../../shared/todo.interface";
+import { TodoListLocalStorageService } from "./todo-list-local-storage.service";
 
 @Injectable({
   providedIn: "root"
@@ -9,19 +10,16 @@ import { TodoInterface } from "../../shared/todo.interface";
 export class TodoListService {
   private todosArray: TodoInterface[] = [];
 
-  constructor() {
+  constructor(private todoListLocalStorageService: TodoListLocalStorageService) {
     this.loadTodosFromLocalStorage();
   }
 
   private loadTodosFromLocalStorage(): void {
-    const elements: string | null = localStorage.getItem("todoElements");
-    if (elements != null) {
-      this.todosArray = JSON.parse(elements);
-    }
+   this.todosArray = this.todoListLocalStorageService.loadTodosFromLocalStorage();
   }
 
   saveTodosToLocalStorage(): void {
-    localStorage.setItem("todoElements", JSON.stringify(this.todosArray));
+    this.todoListLocalStorageService.saveTodosToLocalStorage(this.todosArray);
   }
 
   getTodos(): TodoInterface[] {
