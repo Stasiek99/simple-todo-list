@@ -8,7 +8,7 @@ import { SignupDialogComponent } from "../signup-dialog/signup-dialog.component"
 import { SignupSnackbarComponent } from "../signup-snackbar/signup-snackbar.component";
 import { SignupService, UserId } from "../../services/singnup.service";
 import { UserInterface } from "../../../user/interfaces/user.interface";
-import {TodoListLocalStorageService} from "../../../todo-list/services/todo-list-local-storage.service";
+import { TodoListService } from "../../../todo-list/services/todo-list.service";
 
 @Component({
   selector: 'app-signup',
@@ -25,7 +25,7 @@ export class SignupComponent {
   });
 
   durationInSeconds: number = 5;
-  constructor(private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar, private signupService: SignupService, private todoListLocalStorageService: TodoListLocalStorageService) {}
+  constructor(private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar, private signupService: SignupService, private todoListService: TodoListService) {}
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     let dialogRef = this.dialog.open(SignupDialogComponent, {
@@ -51,7 +51,7 @@ export class SignupComponent {
   onSubmit(payload: UserInterface): void {
     const userId: UserId | null = this.signupService.register(payload);
     if (userId) {
-      this.todoListLocalStorageService.initializeUserTodos(userId);
+      this.todoListService.initializeUserTodos(userId);
       this.router.navigate([`/users/${userId}`])
     } else {
       console.log("Kolego, coś poszło nie tak")

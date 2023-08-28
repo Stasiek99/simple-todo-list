@@ -2,8 +2,8 @@ import {  Injectable } from "@angular/core";
 
 import { TodoInterface } from "../../shared/todo.interface";
 import { TodoListLocalStorageService } from "./todo-list-local-storage.service";
-import {CurrentUserService} from "../../signup/services/current-user.service";
-import {UserInterface} from "../../user/interfaces/user.interface";
+import { CurrentUserService } from "../../signup/services/current-user.service";
+import { UserInterface } from "../../user/interfaces/user.interface";
 
 @Injectable({
   providedIn: "root"
@@ -26,6 +26,11 @@ export class TodoListService {
 
   saveTodosToLocalStorage(userId: string): void {
     this.todoListLocalStorageService.saveTodosToLocalStorage(userId, this.todosArray);
+  }
+
+  initializeUserTodos(userId: string): void {
+    const initialTodo: TodoInterface[] = [];
+    this.todoListLocalStorageService.saveTodosToLocalStorage(userId, initialTodo)
   }
 
   getTodos(): TodoInterface[] {
