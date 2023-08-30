@@ -18,11 +18,11 @@ export const routeConfig: Routes = [
   {path: "todolist", canActivate: [AuthGuard],
     children:[
       {
-        path:"",
+        path:":id",
         component: TodoListComponent
       },
       {
-        path:":id",
+        path:":id/:id",
         component: TodoListElementComponent
       }
     ]
