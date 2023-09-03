@@ -11,7 +11,7 @@
       <mat-menu #menu>
         <button mat-menu-item routerLink="/auth/signup">Register</button>
         <button mat-menu-item routerLink="/auth/login">Log In</button>
-        <button mat-menu-item routerLink="'/todolist/' + userId">Todo List</button>
+        <button mat-menu-item [routerLink]="'/todolist/' + userId">Todo List</button>
         <button mat-menu-item routerLink="/users">List of Users</button>
       </mat-menu>
     </mat-toolbar-row>

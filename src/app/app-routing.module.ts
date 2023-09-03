@@ -15,18 +15,15 @@ export const routeConfig: Routes = [
   {path: "", redirectTo: "home", pathMatch: "full"},
   {path: "home", component: HomeComponent},
   {path: "page-not-found", component: PageNotFoundComponent},
-  {path: "todolist", canActivate: [AuthGuard],
-    children:[
-      {
-        path:":id",
-        component: TodoListComponent
-      },
-      {
-        path:":id/:id",
-        component: TodoListElementComponent
-      }
-    ]
+  {path: "todolist/:userId", canActivate: [AuthGuard], component: TodoListComponent,
+    // children:[
+    //   {
+    //     path:":todoId",
+    //     component: TodoListElementComponent
+    //   }
+    // ]
   },
+  {path: "todolist/:userId/todo/:todoId", component: TodoListElementComponent},
   {path: "users",
     children: [
       {

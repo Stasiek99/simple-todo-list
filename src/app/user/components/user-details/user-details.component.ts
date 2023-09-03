@@ -22,7 +22,7 @@ export class UserDetailsComponent implements OnInit{
     this.router.navigate(["/", "users"]);
   }
 
-  redirectToTodoList(): void {
-    this.router.navigate(["/", "todolist"]);
+  redirectToTodoList(userId: string): void {
+    this.router.navigate(["/todolist", userId]);
   }
 }
