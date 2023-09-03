@@ -20,10 +20,10 @@
   </div>
   <div class="user-presentation__buttons">
     <button mat-raised-button (click)="redirectToUserList()">Go back</button>
-    <button mat-raised-button (click)="redirectToTodoList()">Go to Todo List</button>
+    <button mat-raised-button (click)="redirectToTodoList(user!.id)">Go to Todo List</button>
   </div>
 </ng-container>
 <ng-template #noUser>
   <p class="user-not-created">No user has been created</p>
-  <button mat-raised-button (click)="redirectToTodoList()"></button>
+  <button mat-raised-button (click)="redirectToTodoList(user!.id)"></button>
 </ng-template>

@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 import { TodoInterface } from "../../shared/todo.interface";
 import { TodoListService } from "../services/todo-list.service";
-import {UserInterface} from "../../user/interfaces/user.interface";
-import {CurrentUserService} from "../../signup/services/current-user.service";
+import { UserInterface } from "../../user/interfaces/user.interface";
+import { CurrentUserService } from "../../signup/services/current-user.service";
 
 @Component({
   selector: 'app-todo-list-element',
@@ -22,7 +22,7 @@ export class TodoListElementComponent implements OnInit{
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      const todoId = params["id"];
+      const todoId = params["todoId"];
       if (todoId && this.currentUser) {
         this.todoListService.loadTodosFromLocalStorage(this.currentUser.id)
         this.todo = this.todoListService.getTodoById(todoId);
@@ -37,8 +37,8 @@ export class TodoListElementComponent implements OnInit{
     }
   }
 
-  redirectToTodoList(): void {
-    this.router.navigate(["/todolist"]);
+  redirectToTodoList(id: string): void {
+    this.router.navigate(["/todolist", id]);
   }
 }
 

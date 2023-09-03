@@ -16,9 +16,4 @@ export class HeaderComponent implements OnInit{
   ngOnInit(): void {
     this.userId = this.currentUserService.getCurrentUser()?.id;
   }
-
-
-  onClickMenuIcon(): void {
-    this.menuIconClicked.emit();
-  }
 }

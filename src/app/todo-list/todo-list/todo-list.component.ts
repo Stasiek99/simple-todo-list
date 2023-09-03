@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 
 import { TodoInterface } from "../../shared/todo.interface";
 import { TodoListService } from "../services/todo-list.service";
@@ -17,21 +17,15 @@ export class TodoListComponent implements OnInit{
   editingIndex: number | null = null;
   currentUser: UserInterface | null = null;
 
-  constructor(private todoListService: TodoListService, private router: Router, private currentUserService: CurrentUserService, private route: ActivatedRoute) {}
+  constructor(private todoListService: TodoListService, private router: Router, private currentUserService: CurrentUserService) {}
 
   ngOnInit(): void {
     this.currentUser = this.currentUserService.getCurrentUser();
     if (this.currentUser) {
       this.todoListService.loadTodosFromLocalStorage(this.currentUser.id);
-      this.route.params.subscribe(params => {
-        const userId = params["id"];
-        // @ts-ignore
-        if (userId && this.currentUser.id === userId) {
-          this.todosArray = this.todoListService.getTodos();
-        } else {
-          this.router.navigate(["/", "users"]);
-        }
-      })
+      this.todosArray = this.todoListService.getTodos();
+    } else {
+      this.router.navigate(["/page-not-found"]);
     }
   }
 
@@ -65,7 +59,7 @@ export class TodoListComponent implements OnInit{
     }
   }
 
-  redirectToTodoListElement(id: string): void {
-    this.router.navigate(["/todolist", id])
+  redirectToTodoListElement(todoId: string): void {
+    this.router.navigate(["/todolist", this.currentUser?.id, "todo", todoId]);
   }
 }
