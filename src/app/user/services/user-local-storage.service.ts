@@ -33,6 +33,12 @@ export class UserLocalStorageService {
     return this.getUserList();
   }
 
+  getUserById(userId: string): UserInterface | null {
+    const userList = this.getUserList();
+    const user = userList.find(user => user.id === userId);
+    return user || null;
+  }
+
   deleteUser(userToDelete: UserInterface): void {
     const userList = this.getUserList();
     const updatedList = userList.filter(user => user !== userToDelete);
