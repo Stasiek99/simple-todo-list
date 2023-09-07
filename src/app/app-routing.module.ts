@@ -10,6 +10,7 @@ import { LoginComponent } from "./auth/components/login/login.component";
 import { HomeComponent } from "./general/components/home/home.component";
 import { PageNotFoundComponent } from "./general/components/page-not-found/page-not-found.component";
 import { AuthGuard } from "./auth/guards/auth.guard";
+import { AdminComponent } from "./auth/components/admin/admin.component";
 
 export const routeConfig: Routes = [
   {path: "", redirectTo: "home", pathMatch: "full"},
@@ -43,6 +44,10 @@ export const routeConfig: Routes = [
       {
         path:'login',
         component: LoginComponent
+      },
+      {
+        path: "admin",
+        component: AdminComponent
       }
     ]
   },
