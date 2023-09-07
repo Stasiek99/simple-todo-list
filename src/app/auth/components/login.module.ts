@@ -5,9 +5,10 @@ import { MatInputModule } from "@angular/material/input";
 import { ReactiveFormsModule } from "@angular/forms";
 
 import { LoginComponent } from "./login/login.component";
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, AdminComponent],
     imports: [
         MatButtonModule,
         MatFormFieldModule,

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
-import { LoginService } from "../services/login.service";
+import { LoginService } from "../../services/login.service";
 import { CurrentUserService } from "../../../signup/services/current-user.service";
 
 @Component({

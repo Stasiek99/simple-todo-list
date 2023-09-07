@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 
-import { UserLocalStorageService } from "../../../user/services/user-local-storage.service";
-import { UserInterface } from "../../../user/interfaces/user.interface";
-import { CurrentLocalStorageService } from "../../../user/services/current-local-storage.service";
+import { UserLocalStorageService } from "../../user/services/user-local-storage.service";
+import { UserInterface } from "../../user/interfaces/user.interface";
+import { CurrentLocalStorageService } from "../../user/services/current-local-storage.service";
 
 @Injectable({
   providedIn: "root"
