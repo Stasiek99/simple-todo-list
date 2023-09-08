@@ -10,7 +10,7 @@ import { UserInterface } from "../../user/interfaces/user.interface";
 })
 
 export class TodoListService {
-  private todosArray: TodoInterface[] = [];
+  private todosMap: { [userId: string]: TodoInterface[]} = {};
   currentUser: UserInterface | null = null;
 
   constructor(private todoListLocalStorageService: TodoListLocalStorageService, private currentUserService: CurrentUserService) {
@@ -21,27 +21,28 @@ export class TodoListService {
   }
 
   loadTodosFromLocalStorage(userId: string): void {
-   this.todosArray = this.todoListLocalStorageService.loadTodosFromLocalStorage(userId);
+    this.todosMap[userId] = this.todoListLocalStorageService.loadTodosFromLocalStorage(userId);
   }
 
   saveTodosToLocalStorage(userId: string): void {
-    this.todoListLocalStorageService.saveTodosToLocalStorage(userId, this.todosArray);
+    this.todoListLocalStorageService.saveTodosToLocalStorage(userId, this.todosMap[userId]);
   }
 
   initializeUserTodos(userId: string): void {
-    const initialTodo: TodoInterface[] = [];
-    this.todoListLocalStorageService.saveTodosToLocalStorage(userId, initialTodo)
+    this.todosMap[userId] = [];
+    this.saveTodosToLocalStorage(userId);
   }
 
   deleteUserTodos(userId: string): void {
+    delete this.todosMap[userId];
     this.todoListLocalStorageService.deleteTodosFromLocalStorage(userId);
   }
 
-  getTodos(): TodoInterface[] {
-    return this.todosArray;
+  getTodos(userId: string): TodoInterface[] {
+    return this.todosMap[userId];
   }
 
-  addTodo(description: string): void {
+  addTodo(userId: string, description: string): void {
     const newTodo: TodoInterface = {
       description,
       editing: false,
@@ -49,37 +50,51 @@ export class TodoListService {
       date: new Date().toDateString(),
       id: Date.now().toString()
     };
-    this.todosArray.push(newTodo);
-    if(this.currentUser) {
-      this.saveTodosToLocalStorage(this.currentUser.id);
+    if (!this.todosMap[userId]) {
+      this.todosMap[userId] = [];
+    }
+    this.todosMap[userId].push(newTodo);
+      this.saveTodosToLocalStorage(userId);
+  }
+
+  deleteTodo(userId: string, todoId: string): void {
+    const userTodos: TodoInterface[] = this.todosMap[userId];
+    if (!userTodos) return;
+
+    const index = userTodos.findIndex((todo) => todo.id === todoId);
+    if (index !== -1) {
+      userTodos.splice(index, 1);
+      this.saveTodosToLocalStorage(userId);
     }
   }
 
-  deleteTodo(index: number): void {
-    this.todosArray.splice(index, 1);
-    if(this.currentUser) {
-      this.saveTodosToLocalStorage(this.currentUser.id);
+  startEditing(userId: string, todoId: string): void {
+    const userTodos: TodoInterface[] = this.todosMap[userId];
+    if (!userTodos) return;
+
+    const todo: TodoInterface | undefined = userTodos.find((t) => t.id === todoId);
+    if (todo) {
+      userTodos.forEach((t) => (t.editing = false));
+      todo.editing = true;
+      this.saveTodosToLocalStorage(userId);
     }
   }
 
-  startEditing(index: number): void {
-    this.todosArray.forEach((todo, i) => {
-      if (i !== index) {
-        todo.editing = false;
-      }
-    });
-    this.todosArray[index].editing = true;
-  }
+  finishEditing(userId: string, todoId: string): void {
+    const userTodos: TodoInterface[] = this.todosMap[userId];
+    if (!userTodos) return;
 
-  finishEditing(index: number): void {
-    this.todosArray[index].editing = false;
-    if (this.currentUser) {
-      this.saveTodosToLocalStorage(this.currentUser.id);
+    const todo: TodoInterface | undefined = userTodos.find((t) => t.id === todoId);
+    if (todo) {
+      todo.editing = false;
+      this.saveTodosToLocalStorage(userId);
     }
   }
 
-  getTodoById(id: string): TodoInterface | null {
-    const foundTodo: TodoInterface | undefined = this.todosArray.find(todo => todo.id === id);
-    return foundTodo || null;
+  getTodoById(userId: string, todoId: string): TodoInterface | null {
+    const userTodos: TodoInterface[] = this.todosMap[userId];
+    if (!userTodos) return null;
+    const todo = userTodos.find((t) => t.id === todoId);
+    return todo || null;
   }
 }

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TodoInterface } from "../../shared/todo.interface";
 import { TodoListService } from "../services/todo-list.service";
 import { UserInterface } from "../../user/interfaces/user.interface";
-import { CurrentUserService } from "../../signup/services/current-user.service";
+import { UserService } from "../../user/services/user.service";
 
 @Component({
   selector: 'app-todo-list-element',
@@ -13,27 +13,29 @@ import { CurrentUserService } from "../../signup/services/current-user.service";
 })
 export class TodoListElementComponent implements OnInit{
   todo: TodoInterface | null;
-  currentUser: UserInterface | null = null;
+  selectedUser: UserInterface | null = null;
 
-  constructor(private todoListService: TodoListService, private route: ActivatedRoute, private router: Router, private currentUserService: CurrentUserService) {
+  constructor(private todoListService: TodoListService, private route: ActivatedRoute, private router: Router, private userService: UserService) {
     this.todo = null;
-    this.currentUser = this.currentUserService.getCurrentUser();
+    this.selectedUser = null;
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
+      const userId = params["userId"];
       const todoId = params["todoId"];
-      if (todoId && this.currentUser) {
-        this.todoListService.loadTodosFromLocalStorage(this.currentUser.id)
-        this.todo = this.todoListService.getTodoById(todoId);
+      this.selectedUser = this.userService.getUserById(userId);
+      if (todoId && this.selectedUser) {
+        this.todoListService.loadTodosFromLocalStorage(userId);
+        this.todo = this.todoListService.getTodoById(userId, todoId);
       }
     });
   }
 
   toggleStatus(): void {
-    if (this.todo && this.currentUser) {
+    if (this.todo && this.selectedUser) {
       this.todo.status = this.todo.status === "done" ? "undone" : "done";
-      this.todoListService.saveTodosToLocalStorage(this.currentUser.id);
+      this.todoListService.saveTodosToLocalStorage(this.selectedUser.id);
     }
   }
 
