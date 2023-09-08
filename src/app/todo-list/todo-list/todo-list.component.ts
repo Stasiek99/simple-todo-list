@@ -17,19 +17,27 @@ export class TodoListComponent implements OnInit{
   todosArray: TodoInterface[] = [];
   editingIndex: number | null = null;
   selectedUser: UserInterface | null = null;
+  currentUser: UserInterface | null = null;
 
   constructor(private todoListService: TodoListService, private router: Router, private currentUserService: CurrentUserService, private route: ActivatedRoute, private userService: UserService) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const userId = params["userId"];
-      this.selectedUser = this.userService.getUserById(userId);
-        if (this.selectedUser) {
-          this.todoListService.loadTodosFromLocalStorage(userId);
-          this.todosArray = this.todoListService.getTodos(userId);
-        } else {
-          this.router.navigate(["/page-not-found"]);
+      if (userId) {
+        this.selectedUser = this.userService.getUserById(userId);
+      } else {
+        this.currentUser = this.currentUserService.getCurrentUser();
+        if (this.currentUser) {
+          this.selectedUser = this.currentUser;
         }
+      }
+      if (this.selectedUser) {
+        this.todoListService.loadTodosFromLocalStorage(userId);
+        this.todosArray = this.todoListService.getTodos(userId);
+      } else {
+        this.router.navigate(["/page-not-found"]);
+      }
     });
   }
 
