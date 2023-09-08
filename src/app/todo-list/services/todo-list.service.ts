@@ -33,6 +33,10 @@ export class TodoListService {
     this.todoListLocalStorageService.saveTodosToLocalStorage(userId, initialTodo)
   }
 
+  deleteUserTodos(userId: string): void {
+    this.todoListLocalStorageService.deleteTodosFromLocalStorage(userId);
+  }
+
   getTodos(): TodoInterface[] {
     return this.todosArray;
   }

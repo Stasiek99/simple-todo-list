@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 
 import { UserInterface } from "../interfaces/user.interface";
+import { CurrentLocalStorageService } from "./current-local-storage.service";
 
 @Injectable({
   providedIn: "root"
@@ -9,8 +10,10 @@ import { UserInterface } from "../interfaces/user.interface";
 export class UserLocalStorageService {
   private readonly userStorageItemKey: string = "users_list";
 
+  constructor(private currentLocalStorageService: CurrentLocalStorageService) {}
+
   private getUserList(): UserInterface[] {
-    const objectToParse = window.localStorage.getItem(this.userStorageItemKey);
+    const objectToParse: string | null = window.localStorage.getItem(this.userStorageItemKey);
     return objectToParse ? JSON.parse(objectToParse) : [];
   }
 
@@ -19,7 +22,7 @@ export class UserLocalStorageService {
   }
 
   addUser(user: UserInterface): void {
-    const userList = this.getUserList();
+    const userList: UserInterface[] = this.getUserList();
     userList.push(user);
     this.setUserList(userList);
   }
@@ -41,16 +44,17 @@ export class UserLocalStorageService {
 
   deleteUser(userToDelete: UserInterface): void {
     const userList = this.getUserList();
-    const updatedList = userList.filter(user => user !== userToDelete);
+    const updatedList = userList.filter(user => user.id !== userToDelete.id);
     this.setUserList(updatedList);
+    this.currentLocalStorageService.deleteCurrentUser(userToDelete);
   }
 
-  editUser(editedUser: UserInterface): void {
-    const userList = this.getUserList();
-    const index = userList.findIndex(user => user.id === editedUser.id);
-    if (index !== -1) {
-      userList[index] = editedUser;
-      this.setUserList(userList);
-    }
-  }
+  // editUser(editedUser: UserInterface): void {
+  //   const userList = this.getUserList();
+  //   const index = userList.findIndex(user => user.id === editedUser.id);
+  //   if (index !== -1) {
+  //     userList[index] = editedUser;
+  //     this.setUserList(userList);
+  //   }
+  // }
 }
