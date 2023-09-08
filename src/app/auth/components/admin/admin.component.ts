@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 
 import { UserInterface } from "../../../user/interfaces/user.interface";
-import { UserLocalStorageService } from "../../../user/services/user-local-storage.service";
+import { TodoListService } from "../../../todo-list/services/todo-list.service";
+import { UserService } from "../../../user/services/user.service";
 
 @Component({
   selector: 'app-admin',
@@ -12,15 +13,16 @@ import { UserLocalStorageService } from "../../../user/services/user-local-stora
 export class AdminComponent implements OnInit{
   usersArray: UserInterface[] = [];
 
-  constructor(private userLocalStorageService: UserLocalStorageService, private router: Router) {
+  constructor(private userService: UserService, private router: Router, private todoListService: TodoListService) {
   }
   ngOnInit(): void {
-    this.usersArray = this.userLocalStorageService.getUsers();
+    this.usersArray = this.userService.getUsers();
   }
 
   deleteUser(deletedUser: UserInterface): void {
-    this.userLocalStorageService.deleteUser(deletedUser);
-    this.usersArray = this.userLocalStorageService.getUsers();
+    this.userService.deleteUser(deletedUser);
+    this.usersArray = this.userService.getUsers();
+    this.todoListService.deleteUserTodos(deletedUser.id);
   }
 
   redirectToHomePage(): void {

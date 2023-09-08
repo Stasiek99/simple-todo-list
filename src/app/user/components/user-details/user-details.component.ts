@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 import { UserInterface } from "../../interfaces/user.interface";
 import { CurrentUserService } from "../../../signup/services/current-user.service";
-import {UserLocalStorageService} from "../../services/user-local-storage.service";
+import { UserService } from "../../services/user.service";
 
 @Component({
   selector: 'app-user-details',
@@ -14,13 +14,13 @@ export class UserDetailsComponent implements OnInit{
   user: UserInterface | null = null;
   userId: string | null = null;
 
-  constructor(private currentUserService: CurrentUserService, private userLocalStorageService: UserLocalStorageService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private currentUserService: CurrentUserService, private userService: UserService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.userId = params["id"];
       if (this.userId) {
-        this.user = this.userLocalStorageService.getUserById(this.userId);
+        this.user = this.userService.getUserById(this.userId);
       } else {
         this.router.navigate(["/page-not-found"]);
       }

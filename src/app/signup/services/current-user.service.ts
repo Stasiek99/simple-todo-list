@@ -62,20 +62,20 @@ import { Injectable } from "@angular/core";
 
 import { UserInterface } from "../../user/interfaces/user.interface";
 import { UserId } from "./singnup.service";
-import { UserLocalStorageService } from "../../user/services/user-local-storage.service";
 import { CurrentLocalStorageService } from "../../user/services/current-local-storage.service";
+import { UserService } from "../../user/services/user.service";
 
 @Injectable({
   providedIn: "root"
 })
 
 export class CurrentUserService {
-  constructor(private userLocalStorageService: UserLocalStorageService, private currentLocalStorageService: CurrentLocalStorageService) {}
+  constructor(private userService: UserService, private currentLocalStorageService: CurrentLocalStorageService) {}
 
   getCurrentUser(): UserInterface | null {
     const userId = this.currentLocalStorageService.getCurrentUser();
     if (userId) {
-      const users: UserInterface[] = this.userLocalStorageService.getUsers();
+      const users: UserInterface[] = this.userService.getUsers();
       return this.findCurrentUser(users, userId);
     }
     return null;

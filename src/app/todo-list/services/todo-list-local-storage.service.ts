@@ -16,4 +16,8 @@ export class TodoListLocalStorageService {
   saveTodosToLocalStorage(userId: string, todos: TodoInterface[]): void {
     localStorage.setItem(`${this.todoStorageKeyPrefix}_${userId}`, JSON.stringify(todos));
   }
+
+  deleteTodosFromLocalStorage(userId: string): void {
+    window.localStorage.removeItem(`${this.todoStorageKeyPrefix}_${userId}`);
+  }
 }
