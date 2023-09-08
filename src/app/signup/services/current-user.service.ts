@@ -13,7 +13,7 @@ export class CurrentUserService {
   constructor(private userService: UserService, private currentLocalStorageService: CurrentLocalStorageService) {}
 
   getCurrentUser(): UserInterface | null {
-    const userId = this.currentLocalStorageService.getCurrentUser();
+    const userId: string | null = this.currentLocalStorageService.getCurrentUser();
     if (userId) {
       const users: UserInterface[] = this.userService.getUsers();
       return this.findCurrentUser(users, userId);
