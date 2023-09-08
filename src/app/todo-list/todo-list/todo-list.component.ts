@@ -33,8 +33,8 @@ export class TodoListComponent implements OnInit{
         }
       }
       if (this.selectedUser) {
-        this.todoListService.loadTodosFromLocalStorage(userId);
-        this.todosArray = this.todoListService.getTodos(userId);
+        this.todoListService.loadTodosFromLocalStorage(this.selectedUser.id);
+        this.todosArray = this.todoListService.getTodos(this.selectedUser.id);
       } else {
         this.router.navigate(["/page-not-found"]);
       }
