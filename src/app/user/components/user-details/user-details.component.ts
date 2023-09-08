@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { UserInterface } from "../../interfaces/user.interface";
-import { CurrentUserService } from "../../../signup/services/current-user.service";
 import { UserService } from "../../services/user.service";
 
 @Component({
@@ -14,7 +13,7 @@ export class UserDetailsComponent implements OnInit{
   user: UserInterface | null = null;
   userId: string | null = null;
 
-  constructor(private currentUserService: CurrentUserService, private userService: UserService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {

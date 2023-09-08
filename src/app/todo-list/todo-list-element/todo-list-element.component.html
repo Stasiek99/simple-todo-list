@@ -13,5 +13,5 @@
     <strong>Status: </strong>{{ todo?.status }}
     <button mat-button (click)="toggleStatus()">Change status</button>
   </div>
-  <button mat-raised-button  (click)="redirectToTodoList(currentUser!.id)">Back to List</button>
+  <button mat-raised-button  (click)="redirectToTodoList(selectedUser!.id)">Back to List</button>
 </div>
