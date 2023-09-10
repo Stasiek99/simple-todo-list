@@ -6,7 +6,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 
 import { SignupDialogComponent } from "../signup-dialog/signup-dialog.component";
 import { SignupSnackbarComponent } from "../signup-snackbar/signup-snackbar.component";
-import { SignupService, UserId } from "../../services/singnup.service";
+import { SignupService } from "../../services/singnup.service";
 import { UserInterface } from "../../../user/interfaces/user.interface";
 import { TodoListService } from "../../../todo-list/services/todo-list.service";
 
@@ -49,7 +49,7 @@ export class SignupComponent {
   }
 
   onSubmit(payload: UserInterface): void {
-    const userId: UserId | null = this.signupService.register(payload);
+    const userId: string | null = this.signupService.register(payload);
     if (userId) {
       this.todoListService.initializeUserTodos(userId);
       this.router.navigate([`/users/${userId}`])

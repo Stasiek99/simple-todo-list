@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { UserId } from "../../signup/services/singnup.service";
 import { UserInterface } from "../interfaces/user.interface";
 
 @Injectable({
@@ -8,12 +7,12 @@ import { UserInterface } from "../interfaces/user.interface";
 })
 export class CurrentLocalStorageService {
   private readonly selectedUserKey: string = "selected_user_id"
-  getCurrentUser(): UserId | null {
+  getCurrentUser(): string | null {
     const userId: string | null = window.localStorage.getItem(this.selectedUserKey);
     return userId ? userId : null;
   }
 
-  setCurrentUserId(userId: UserId): void {
+  setCurrentUserId(userId: string): void {
     window.localStorage.setItem(this.selectedUserKey, userId);
   }
 
