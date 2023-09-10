@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 
 import { UserInterface } from "../../user/interfaces/user.interface";
-import { UserId } from "./singnup.service";
 import { CurrentLocalStorageService } from "../../user/services/current-local-storage.service";
 import { UserService } from "../../user/services/user.service";
 
@@ -21,7 +20,7 @@ export class CurrentUserService {
     return null;
   }
 
-  private findCurrentUser(users: UserInterface[], userId: UserId): UserInterface | null{
+  private findCurrentUser(users: UserInterface[], userId: string): UserInterface | null{
     const user: UserInterface | undefined = users.find((user) => user.id === userId);
     return user || null;
   }
