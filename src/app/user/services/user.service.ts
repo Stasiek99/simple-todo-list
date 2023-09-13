@@ -9,12 +9,8 @@ import { UserInterface } from "../interfaces/user.interface";
 export class UserService {
   constructor(private userLocalStorageService: UserLocalStorageService) { }
 
-  addUser(user: UserInterface): void {
-    this.userLocalStorageService.addUser(user);
-  }
-
   getUsers(): UserInterface[] {
-    return this.userLocalStorageService.getUsers();
+    return [...this.userLocalStorageService.getUsers()];
   }
 
   getUserById(userId: string): UserInterface | null {

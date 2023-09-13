@@ -23,17 +23,12 @@ export class UserLocalStorageService {
 
   addUser(user: UserInterface): void {
     const userList: UserInterface[] = this.getUserList();
-    userList.push(user);
-    this.setUserList(userList);
+    const updatedUserList = [...userList, user];
+    this.setUserList(updatedUserList);
   }
 
-  // setSuperSelectedUser(userId: string): void {
-  //   this.selectedUserid = userId;
-  //   // this.selectedUserid = userId;
-  // }
-
   getUsers(): UserInterface[] {
-    return this.getUserList();
+    return [...this.getUserList()];
   }
 
   getUserById(userId: string): UserInterface | null {

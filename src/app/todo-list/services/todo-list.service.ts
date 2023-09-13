@@ -1,31 +1,48 @@
-import {  Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
 
-import { TodoInterface } from "../../shared/todo.interface";
-import { TodoListLocalStorageService } from "./todo-list-local-storage.service";
-import { CurrentUserService } from "../../signup/services/current-user.service";
-import { UserInterface } from "../../user/interfaces/user.interface";
+import {TodoInterface} from "../../shared/todo.interface";
+import {TodoListLocalStorageService} from "./todo-list-local-storage.service";
+import {CurrentUserService} from "../../signup/services/current-user.service";
+import {UserInterface} from "../../user/interfaces/user.interface";
 
 @Injectable({
   providedIn: "root"
 })
 
 export class TodoListService {
-  private todosMap: { [userId: string]: TodoInterface[]} = {};
+  private todosMap: { [userId: string]: TodoInterface[] } = {};
   currentUser: UserInterface | null = null;
 
   constructor(private todoListLocalStorageService: TodoListLocalStorageService, private currentUserService: CurrentUserService) {
     this.currentUser = this.currentUserService.getCurrentUser();
-    if(this.currentUser) {
+    if (this.currentUser) {
       this.loadTodosFromLocalStorage(this.currentUser.id);
     }
   }
 
   loadTodosFromLocalStorage(userId: string): void {
-    this.todosMap[userId] = this.todoListLocalStorageService.loadTodosFromLocalStorage(userId);
+    this.todosMap[userId] = [...this.todoListLocalStorageService.loadTodosFromLocalStorage(userId)];
   }
 
   saveTodosToLocalStorage(userId: string): void {
     this.todoListLocalStorageService.saveTodosToLocalStorage(userId, this.todosMap[userId]);
+  }
+
+  saveUpdatedTodoToLocalStorage(userId: string, updatedTodo: TodoInterface): void {
+    const userTodos: TodoInterface[] = this.todosMap[userId];
+    if(!userTodos) return;
+
+    const updatedTodos = userTodos.map((todo) => {
+      if (todo.id === updatedTodo.id) {
+        return {
+          ...todo,
+          status: updatedTodo.status
+        }
+      }
+      return todo;
+    });
+    this.todosMap[userId] = updatedTodos;
+    this.todoListLocalStorageService.saveTodosToLocalStorage(userId, updatedTodos);
   }
 
   initializeUserTodos(userId: string): void {
@@ -39,7 +56,7 @@ export class TodoListService {
   }
 
   getTodos(userId: string): TodoInterface[] {
-    return this.todosMap[userId];
+    return this.todosMap[userId] ? [...this.todosMap[userId]] : [];
   }
 
   addTodo(userId: string, description: string): void {
@@ -53,8 +70,8 @@ export class TodoListService {
     if (!this.todosMap[userId]) {
       this.todosMap[userId] = [];
     }
-    this.todosMap[userId].push(newTodo);
-      this.saveTodosToLocalStorage(userId);
+    this.todosMap[userId] = [...this.todosMap[userId], newTodo];
+    this.saveTodosToLocalStorage(userId);
   }
 
   deleteTodo(userId: string, todoId: string): void {
@@ -63,7 +80,8 @@ export class TodoListService {
 
     const index = userTodos.findIndex((todo) => todo.id === todoId);
     if (index !== -1) {
-      userTodos.splice(index, 1);
+      const updatedUserTodos = [...userTodos.slice(0, index), ...userTodos.slice(index + 1)];
+      this.todosMap[userId] = updatedUserTodos;
       this.saveTodosToLocalStorage(userId);
     }
   }
@@ -72,23 +90,26 @@ export class TodoListService {
     const userTodos: TodoInterface[] = this.todosMap[userId];
     if (!userTodos) return;
 
-    const todo: TodoInterface | undefined = userTodos.find((t) => t.id === todoId);
-    if (todo) {
-      userTodos.forEach((t) => (t.editing = false));
-      todo.editing = true;
-      this.saveTodosToLocalStorage(userId);
-    }
+    const updatedUserTodos = userTodos.map((todo) => ({
+      ...todo,
+      editing: todo.id === todoId
+    }));
+
+    this.todosMap[userId] = updatedUserTodos;
+    this.saveTodosToLocalStorage(userId);
   }
 
   finishEditing(userId: string, todoId: string): void {
     const userTodos: TodoInterface[] = this.todosMap[userId];
     if (!userTodos) return;
 
-    const todo: TodoInterface | undefined = userTodos.find((t) => t.id === todoId);
-    if (todo) {
-      todo.editing = false;
-      this.saveTodosToLocalStorage(userId);
-    }
+    const updatedUserTodos = userTodos.map((todo) => ({
+      ...todo,
+        editing: false
+    }));
+
+    this.todosMap[userId] = updatedUserTodos;
+    this.saveTodosToLocalStorage(userId);
   }
 
   getTodoById(userId: string, todoId: string): TodoInterface | null {
