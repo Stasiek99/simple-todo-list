@@ -15,7 +15,8 @@ export class CurrentUserService {
     const userId: string | null = this.currentLocalStorageService.getCurrentUser();
     if (userId) {
       const users: UserInterface[] = this.userService.getUsers();
-      return this.findCurrentUser(users, userId);
+      const currentUser = this.findCurrentUser(users, userId);
+      return currentUser ? {...currentUser} : null;
     }
     return null;
   }

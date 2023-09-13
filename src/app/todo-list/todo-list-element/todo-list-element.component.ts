@@ -34,8 +34,13 @@ export class TodoListElementComponent implements OnInit{
 
   toggleStatus(): void {
     if (this.todo && this.selectedUser) {
-      this.todo.status = this.todo.status === "done" ? "undone" : "done";
-      this.todoListService.saveTodosToLocalStorage(this.selectedUser.id);
+      const updatedTodo: TodoInterface = {
+        ...this.todo,
+        status: this.todo.status === "done" ? "undone" : "done"
+      };
+
+      this.todoListService.saveUpdatedTodoToLocalStorage(this.selectedUser.id, updatedTodo);
+      this.todo = updatedTodo;
     }
   }
 
