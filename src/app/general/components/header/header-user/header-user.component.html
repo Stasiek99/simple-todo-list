@@ -1,0 +1,19 @@
+<header>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <a routerLink="/" class="app-title">
+        <span>Todo List App</span>
+      </a>
+      <div class="user-info">
+        <span>Hello {{ currentUser?.name }}</span>
+        <button mat-mini-fab color="#FBEAEB" [matMenuTriggerFor]="menu">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <mat-menu #menu>
+        <button mat-menu-item [routerLink]="'/todolist/' + userId">Todo List</button>
+        <button mat-menu-item (click)="onLogOutClicked()">Log Out</button>
+      </mat-menu>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</header>

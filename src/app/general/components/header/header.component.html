@@ -1,19 +1,3 @@
-<header>
-  <mat-toolbar color="primary">
-    <mat-toolbar-row >
-      <a routerLink="/" class="app-title">
-        <span >Todo List App</span>
-      </a>
-      <span class="spacer"></span>
-      <button mat-mini-fab color="#FBEAEB" [matMenuTriggerFor]="menu">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <mat-menu #menu>
-        <button mat-menu-item routerLink="/auth/signup">Register</button>
-        <button mat-menu-item routerLink="/auth/login">Log In</button>
-        <button mat-menu-item [routerLink]="'/todolist/' + userId">Todo List</button>
-        <button mat-menu-item routerLink="/users">List of Users</button>
-      </mat-menu>
-    </mat-toolbar-row>
-  </mat-toolbar>
-</header>
+<app-header-no-user *ngIf="!currentUser"></app-header-no-user>
+<app-header-user *ngIf="currentUser && currentUser.name !== 'admin'"></app-header-user>
+<app-header-user *ngIf="currentUser && currentUser.name === 'admin' && currentUser.login === 'admin' && currentUser.password === 'admin'"></app-header-user>
