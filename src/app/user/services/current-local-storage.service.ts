@@ -7,7 +7,7 @@ import { UserInterface } from "../interfaces/user.interface";
 })
 export class CurrentLocalStorageService {
   private readonly selectedUserKey: string = "selected_user_id"
-  getCurrentUser(): string | null {
+  getCurrentUserId(): string | null {
     const userId: string | null = window.localStorage.getItem(this.selectedUserKey);
     return userId ? userId : null;
   }
@@ -17,7 +17,7 @@ export class CurrentLocalStorageService {
   }
 
   deleteCurrentUser(userToDelete: UserInterface): void {
-    const currentUserId: string | null = this.getCurrentUser();
+    const currentUserId: string | null = this.getCurrentUserId();
     if (userToDelete.id === currentUserId) {
       window.localStorage.removeItem(this.selectedUserKey);
     }
