@@ -1,6 +1,7 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { CurrentUserService } from "../../../signup/services/current-user.service";
+import {UserInterface} from "../../../user/interfaces/user.interface";
+import {CurrentUserService} from "../../../signup/services/current-user.service";
 
 @Component({
   selector: 'app-header',
@@ -8,12 +9,12 @@ import { CurrentUserService } from "../../../signup/services/current-user.servic
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit{
-  @Output() menuIconClicked = new EventEmitter<void>();
-  userId: string | null = null;
+  currentUser: UserInterface | null = null;
 
-  constructor(private currentUserService: CurrentUserService) {}
+  constructor(private currentUserService: CurrentUserService) {
+  }
 
   ngOnInit(): void {
-    this.userId = this.currentUserService.getCurrentUserId();
+    this.currentUser = this.currentUserService.getCurrentUser();
   }
 }
