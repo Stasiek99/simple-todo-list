@@ -23,7 +23,7 @@ export class LoginComponent {
     const loginSuccessful: boolean = this.loginService.login(login, password);
 
     if (loginSuccessful) {
-      const userId = this.currentUserService.getCurrentUser()?.id;
+      const userId: string | null = this.currentUserService.getCurrentUserId();
       if(userId) {
         this.router.navigate(["/users", userId]);
       } else {

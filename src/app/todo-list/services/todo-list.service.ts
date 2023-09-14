@@ -3,7 +3,6 @@ import {Injectable} from "@angular/core";
 import {TodoInterface} from "../../shared/todo.interface";
 import {TodoListLocalStorageService} from "./todo-list-local-storage.service";
 import {CurrentUserService} from "../../signup/services/current-user.service";
-import {UserInterface} from "../../user/interfaces/user.interface";
 
 @Injectable({
   providedIn: "root"
@@ -11,12 +10,12 @@ import {UserInterface} from "../../user/interfaces/user.interface";
 
 export class TodoListService {
   private todosMap: { [userId: string]: TodoInterface[] } = {};
-  currentUser: UserInterface | null = null;
+  private readonly currentUserId: string | null = null;
 
   constructor(private todoListLocalStorageService: TodoListLocalStorageService, private currentUserService: CurrentUserService) {
-    this.currentUser = this.currentUserService.getCurrentUser();
-    if (this.currentUser) {
-      this.loadTodosFromLocalStorage(this.currentUser.id);
+    this.currentUserId = this.currentUserService.getCurrentUserId();
+    if (this.currentUserId) {
+      this.loadTodosFromLocalStorage(this.currentUserId);
     }
   }
 
@@ -105,7 +104,7 @@ export class TodoListService {
 
     const updatedUserTodos = userTodos.map((todo) => ({
       ...todo,
-        editing: false
+        editing: todo.id !== todoId
     }));
 
     this.todosMap[userId] = updatedUserTodos;

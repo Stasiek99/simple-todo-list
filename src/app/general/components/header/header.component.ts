@@ -9,11 +9,11 @@ import { CurrentUserService } from "../../../signup/services/current-user.servic
 })
 export class HeaderComponent implements OnInit{
   @Output() menuIconClicked = new EventEmitter<void>();
-  userId: string | undefined = undefined;
+  userId: string | null = null;
 
   constructor(private currentUserService: CurrentUserService) {}
 
   ngOnInit(): void {
-    this.userId = this.currentUserService.getCurrentUser()?.id;
+    this.userId = this.currentUserService.getCurrentUserId();
   }
 }
