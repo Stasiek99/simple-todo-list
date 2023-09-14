@@ -16,6 +16,12 @@ export class TodoListService {
     this.currentUserId = this.currentUserService.getCurrentUserId();
     if (this.currentUserId) {
       this.loadTodosFromLocalStorage(this.currentUserId);
+      if (this.todosMap[this.currentUserId]) {
+        this.todosMap[this.currentUserId].forEach((todo) => {
+            todo.editing = false;
+        });
+        this.saveTodosToLocalStorage(this.currentUserId);
+      }
     }
   }
 
@@ -66,10 +72,10 @@ export class TodoListService {
       date: new Date().toDateString(),
       id: Date.now().toString()
     };
-    if (!this.todosMap[userId]) {
-      this.todosMap[userId] = [];
-    }
-    this.todosMap[userId] = [...this.todosMap[userId], newTodo];
+    const userTodos: TodoInterface[] = this.todosMap[userId] || [];
+
+    const updatedUserTodos = [...userTodos, newTodo];
+    this.todosMap[userId] = updatedUserTodos;
     this.saveTodosToLocalStorage(userId);
   }
 
@@ -89,10 +95,16 @@ export class TodoListService {
     const userTodos: TodoInterface[] = this.todosMap[userId];
     if (!userTodos) return;
 
-    const updatedUserTodos = userTodos.map((todo) => ({
-      ...todo,
-      editing: todo.id === todoId
-    }));
+    const updatedUserTodos = userTodos.map((todo) => {
+      if (todo.id === todoId) {
+        return {
+          ...todo,
+          editing: true
+        };
+      } else {
+        return todo;
+      }
+    });
 
     this.todosMap[userId] = updatedUserTodos;
     this.saveTodosToLocalStorage(userId);
@@ -102,10 +114,16 @@ export class TodoListService {
     const userTodos: TodoInterface[] = this.todosMap[userId];
     if (!userTodos) return;
 
-    const updatedUserTodos = userTodos.map((todo) => ({
-      ...todo,
-        editing: todo.id !== todoId
-    }));
+    const updatedUserTodos = userTodos.map((todo) => {
+      if (todo.id === todoId) {
+        return {
+          ...todo,
+          editing: false
+        };
+      } else {
+        return todo;
+      }
+    });
 
     this.todosMap[userId] = updatedUserTodos;
     this.saveTodosToLocalStorage(userId);

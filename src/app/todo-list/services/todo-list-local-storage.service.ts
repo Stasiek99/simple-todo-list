@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
 
-import { TodoInterface } from "../../shared/todo.interface";
+import {TodoInterface} from "../../shared/todo.interface";
 
 @Injectable({
   providedIn: "root"
