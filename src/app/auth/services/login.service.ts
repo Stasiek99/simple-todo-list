@@ -1,14 +1,14 @@
 import {Injectable} from "@angular/core";
 
 import {UserInterface} from "../../user/interfaces/user.interface";
-import {CurrentLocalStorageService} from "../../user/services/current-local-storage.service";
 import {UserService} from "../../user/services/user.service";
+import {CurrentUserService} from "../../signup/services/current-user.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class LoginService {
-  constructor(private userService: UserService, private currentLocalStorageService: CurrentLocalStorageService) {
+  constructor(private userService: UserService, private currentUserService: CurrentUserService) {
   }
 
   login(login: string, password: string): boolean {
@@ -16,7 +16,7 @@ export class LoginService {
     const user = userList.find(user => user.login === login && user.password === password);
 
     if (user) {
-      this.currentLocalStorageService.setCurrentUserId(user.id);
+      this.currentUserService.setCurrentUser(user);
       return true;
     } else {
       return false;

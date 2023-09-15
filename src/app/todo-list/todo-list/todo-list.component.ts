@@ -1,25 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 
-import { TodoInterface } from "../../shared/todo.interface";
-import { TodoListService } from "../services/todo-list.service";
-import { CurrentUserService } from "../../signup/services/current-user.service";
-import { UserInterface } from "../../user/interfaces/user.interface";
-import { UserService } from "../../user/services/user.service";
+import {TodoInterface} from "../../shared/todo.interface";
+import {TodoListService} from "../services/todo-list.service";
+import {CurrentUserService} from "../../signup/services/current-user.service";
+import {UserInterface} from "../../user/interfaces/user.interface";
+import {UserService} from "../../user/services/user.service";
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],
 })
-export class TodoListComponent implements OnInit{
+export class TodoListComponent implements OnInit {
   todoElem: string = "";
   todosArray: TodoInterface[] = [];
   editingIndex: number | null = null;
   selectedUser: UserInterface | null = null;
   currentUser: UserInterface | null = null;
 
-  constructor(private todoListService: TodoListService, private router: Router, private currentUserService: CurrentUserService, private route: ActivatedRoute, private userService: UserService) {}
+  constructor(private todoListService: TodoListService, private router: Router, private currentUserService: CurrentUserService, private route: ActivatedRoute, private userService: UserService) {
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -34,7 +35,7 @@ export class TodoListComponent implements OnInit{
       }
       if (this.selectedUser) {
         this.todoListService.loadTodosFromLocalStorage(this.selectedUser.id);
-        this.todosArray = this.todoListService.getTodos(this.selectedUser.id);
+        this.synchronizeTodos();
       } else {
         this.router.navigate(["/page-not-found"]);
       }
@@ -45,18 +46,21 @@ export class TodoListComponent implements OnInit{
     if (this.todoElem.trim() !== "") {
       this.todoListService.addTodo(this.selectedUser!.id, this.todoElem);
       this.todoElem = "";
+      this.synchronizeTodos();
     }
   }
 
   onElemDeleted(index: number): void {
     this.todoListService.deleteTodo(this.selectedUser!.id, this.todosArray[index].id);
+    this.synchronizeTodos();
   }
 
   onElemEdit(index: number): void {
     if (this.editingIndex !== index) {
       this.todoListService.startEditing(this.selectedUser!.id, this.todosArray[index].id);
       this.resetEditing();
-      this.editingIndex = index;}
+      this.editingIndex = index;
+    }
   }
 
   onElemSave(index: number): void {
@@ -69,6 +73,10 @@ export class TodoListComponent implements OnInit{
       this.todosArray[this.editingIndex].editing = false;
       this.editingIndex = null;
     }
+  }
+
+  private synchronizeTodos(): void {
+    this.todosArray = [...this.todoListService.getTodos(this.selectedUser!.id)];
   }
 
   redirectToTodoListElement(todoId: string): void {

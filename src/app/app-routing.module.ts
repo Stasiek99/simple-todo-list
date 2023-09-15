@@ -12,8 +12,6 @@ import {PageNotFoundComponent} from "./general/components/page-not-found/page-no
 import {AuthGuard} from "./auth/guards/auth.guard";
 import {AdminComponent} from "./auth/components/admin/admin.component";
 import {AdminGuard} from "./auth/guards/admin.guard";
-import {HeaderUserComponent} from "./general/components/header/header-user/header-user.component";
-import {HeaderNoUserComponent} from "./general/components/header/header-no-user/header-no-user.component";
 
 export const routeConfig: Routes = [
   {path: "", redirectTo: "home", pathMatch: "full"},
@@ -58,12 +56,6 @@ export const routeConfig: Routes = [
   },
   {
     path: "admin", canActivate: [AdminGuard], component: AdminComponent
-  },
-  {
-    path: "headeruser", component: HeaderUserComponent
-  },
-  {
-    path: "headernouser", component: HeaderNoUserComponent
   },
   {
     path: "**", redirectTo: "/page-not-found"
