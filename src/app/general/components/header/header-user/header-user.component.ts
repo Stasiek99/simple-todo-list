@@ -23,7 +23,7 @@ export class HeaderUserComponent implements OnInit {
   }
 
   onLogOutClicked(): void {
-    if (this.currentUser) this.userService.deleteUser(this.currentUser);
+    this.currentUserService.logout();
     this.router.navigate(["/home"])
   }
 }

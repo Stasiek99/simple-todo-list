@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import { UserLocalStorageService } from "./user-local-storage.service";
-import { UserInterface } from "../interfaces/user.interface";
+import {UserLocalStorageService} from "./user-local-storage.service";
+import {UserInterface} from "../interfaces/user.interface";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private userLocalStorageService: UserLocalStorageService) { }
+  constructor(private userLocalStorageService: UserLocalStorageService) {
+  }
 
   getUsers(): UserInterface[] {
     return [...this.userLocalStorageService.getUsers()];

@@ -1,3 +1,3 @@
 <app-header-no-user *ngIf="!currentUser"></app-header-no-user>
 <app-header-user *ngIf="currentUser && currentUser.name !== 'admin'"></app-header-user>
-<app-header-user *ngIf="currentUser && currentUser.name === 'admin' && currentUser.login === 'admin' && currentUser.password === 'admin'"></app-header-user>
+<app-header-admin *ngIf="currentUser && currentUser.name === 'admin' && currentUser.login === 'admin' && currentUser.password === 'admin'"></app-header-admin>

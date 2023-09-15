@@ -26,9 +26,9 @@ export class UserDetailsComponent implements OnInit{
     })
   }
 
-  redirectToUserList(): void {
-    this.router.navigate(["/", "users"]);
-  }
+  // redirectToUserList(): void {
+  //   this.router.navigate(["/", "users"]);
+  // }
 
   redirectToTodoList(): void {
     this.router.navigate(["/todolist", this.userId]);

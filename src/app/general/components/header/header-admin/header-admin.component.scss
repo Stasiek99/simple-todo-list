@@ -1,5 +1,17 @@
-.spacer {
-  flex: 1 1 auto;
+.mat-toolbar-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+
+  span {
+    color: white;
+    margin-right: 20px;
+  }
 }
 
 .app-title {
