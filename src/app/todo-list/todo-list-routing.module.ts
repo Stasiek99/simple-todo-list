@@ -8,7 +8,8 @@ import {TodoListElementComponent} from "./todo-list-element/todo-list-element.co
 
 const routes: Routes = [
   {
-    path: "", canActivate: [AuthGuard],
+    path: "",
+    canActivate: [AuthGuard],
     children: [
       {
         path: "",
