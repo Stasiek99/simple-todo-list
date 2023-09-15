@@ -8,7 +8,7 @@ import {CurrentUserService} from "../../../signup/services/current-user.service"
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit {
   currentUser: UserInterface | null = null;
 
   constructor(private currentUserService: CurrentUserService) {

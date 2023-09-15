@@ -1,15 +1,8 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 
-import {TodoListComponent} from "./todo-list/todo-list/todo-list.component";
-import {SignupComponent} from "./signup/components/signup/signup.component";
-import {TodoListElementComponent} from "./todo-list/todo-list-element/todo-list-element.component";
-import {UserDetailsComponent} from "./user/components/user-details/user-details.component";
-import {UserListComponent} from "./user/components/user-list/user-list.component";
-import {LoginComponent} from "./auth/components/login/login.component";
 import {HomeComponent} from "./general/components/home/home.component";
 import {PageNotFoundComponent} from "./general/components/page-not-found/page-not-found.component";
-import {AuthGuard} from "./auth/guards/auth.guard";
 import {AdminComponent} from "./auth/components/admin/admin.component";
 import {AdminGuard} from "./auth/guards/admin.guard";
 
@@ -18,41 +11,16 @@ export const routeConfig: Routes = [
   {path: "home", component: HomeComponent},
   {path: "page-not-found", component: PageNotFoundComponent},
   {
-    path: "todolist/:userId", canActivate: [AuthGuard],
-    children: [
-      {
-        path: "",
-        component: TodoListComponent
-      },
-      {
-        path: "todo/:todoId",
-        component: TodoListElementComponent
-      }
-    ]
+    path: "todolist/:userId",
+    loadChildren: () => import("./todo-list/todo-list-routing.module").then((m) => m.TodoListRoutingModule)
   },
   {
     path: "users",
-    children: [
-      {
-        path: "", component: UserListComponent
-      },
-      {
-        path: ":id", component: UserDetailsComponent
-      }
-    ]
+    loadChildren: () => import("./user/user-routing.module").then((m) => m.TodoListRoutingModule)
   },
   {
     path: "auth",
-    children: [
-      {
-        path: 'signup',
-        component: SignupComponent
-      },
-      {
-        path: 'login',
-        component: LoginComponent
-      },
-    ]
+    loadChildren: () => import("./auth/auth-routing.module").then((m) => m.TodoListRoutingModule)
   },
   {
     path: "admin", canActivate: [AdminGuard], component: AdminComponent

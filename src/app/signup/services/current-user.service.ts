@@ -9,7 +9,8 @@ import {UserService} from "../../user/services/user.service";
 })
 
 export class CurrentUserService {
-  private userChanged  = new EventEmitter<UserInterface | null>();
+  private userChanged = new EventEmitter<UserInterface | null>();
+
   constructor(private userService: UserService, private currentLocalStorageService: CurrentLocalStorageService) {
   }
 
