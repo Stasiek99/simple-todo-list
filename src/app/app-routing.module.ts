@@ -16,11 +16,11 @@ export const routeConfig: Routes = [
   },
   {
     path: "users",
-    loadChildren: () => import("./user/user-routing.module").then((m) => m.TodoListRoutingModule)
+    loadChildren: () => import("./user/user-routing.module").then((m) => m.UserRoutingModule)
   },
   {
     path: "auth",
-    loadChildren: () => import("./auth/auth-routing.module").then((m) => m.TodoListRoutingModule)
+    loadChildren: () => import("./auth/auth-routing.module").then((m) => m.AuthRoutingModule)
   },
   {
     path: "admin", canActivate: [AdminGuard], component: AdminComponent

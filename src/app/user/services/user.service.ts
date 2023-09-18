@@ -21,4 +21,8 @@ export class UserService {
   deleteUser(userToDelete: UserInterface): void {
     this.userLocalStorageService.deleteUser(userToDelete);
   }
+
+  approveUser(user: UserInterface): void {
+    this.userLocalStorageService.approveUser(user);
+  }
 }

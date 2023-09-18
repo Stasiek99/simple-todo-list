@@ -44,12 +44,13 @@ export class UserLocalStorageService {
     this.currentLocalStorageService.deleteCurrentUser(userToDelete);
   }
 
-  // editUser(editedUser: UserInterface): void {
-  //   const userList = this.getUserList();
-  //   const index = userList.findIndex(user => user.id === editedUser.id);
-  //   if (index !== -1) {
-  //     userList[index] = editedUser;
-  //     this.setUserList(userList);
-  //   }
-  // }
+  approveUser(userToApprove: UserInterface): void {
+    const userList: UserInterface[] = this.getUserList();
+    const index = userList.findIndex(user => user.id === userToApprove.id);
+    if (index !== -1) {
+      userToApprove.approved = true;
+      userList[index] = userToApprove;
+      this.setUserList(userList);
+    }
+  }
 }

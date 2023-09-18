@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import { MatDialog } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import {Component} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
-import { SignupDialogComponent } from "../signup-dialog/signup-dialog.component";
-import { SignupSnackbarComponent } from "../signup-snackbar/signup-snackbar.component";
-import { SignupService } from "../../services/singnup.service";
-import { UserInterface } from "../../../user/interfaces/user.interface";
-import { TodoListService } from "../../../todo-list/services/todo-list.service";
+import {SignupDialogComponent} from "../signup-dialog/signup-dialog.component";
+import {SignupSnackbarComponent} from "../signup-snackbar/signup-snackbar.component";
+import {SignupService} from "../../services/singnup.service";
+import {UserInterface} from "../../../user/interfaces/user.interface";
+import {TodoListService} from "../../../todo-list/services/todo-list.service";
 
 @Component({
   selector: 'app-signup',
@@ -24,8 +24,10 @@ export class SignupComponent {
     "email": new FormControl(null, Validators.required)
   });
 
-  durationInSeconds: number = 5;
-  constructor(private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar, private signupService: SignupService, private todoListService: TodoListService) {}
+  durationInSeconds: number = 3;
+
+  constructor(private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar, private signupService: SignupService, private todoListService: TodoListService) {
+  }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     let dialogRef = this.dialog.open(SignupDialogComponent, {
@@ -35,7 +37,7 @@ export class SignupComponent {
       exitAnimationDuration
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         this.onSubmit(this.newUserForm.value);
         this.openSnackBar();
       }

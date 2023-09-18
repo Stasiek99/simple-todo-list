@@ -29,5 +29,5 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class TodoListRoutingModule {
+export class UserRoutingModule {
 }
