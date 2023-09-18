@@ -2,9 +2,9 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from "@angular/router";
 
-import {AuthGuard} from "../auth/guards/auth.guard";
 import {TodoListComponent} from "./todo-list/todo-list.component";
 import {TodoListElementComponent} from "./todo-list-element/todo-list-element.component";
+import {AuthGuard} from "../auth/guards/auth.guard";
 
 const routes: Routes = [
   {

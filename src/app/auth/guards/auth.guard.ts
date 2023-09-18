@@ -15,10 +15,11 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const currentUser: UserInterface | null = this.currentUserService.getCurrentUser();
 
-    if (currentUser) {
+    if (currentUser && currentUser.approved) {
       return true;
     } else {
-      return this.router.createUrlTree(["/page-not-found"]);
+      this.router.navigate(["/unapproved"]);
+      return false;
     }
   }
 }
