@@ -10,9 +10,10 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { SignupComponent } from "./components/signup/signup.component";
 import { SignupDialogComponent } from './components/signup-dialog/signup-dialog.component';
 import { SignupSnackbarComponent } from './components/signup-snackbar/signup-snackbar.component';
+import { UnapprovedUserComponent } from './components/unapproved-user/unapproved-user.component';
 
 @NgModule({
-  declarations: [SignupComponent, SignupDialogComponent, SignupSnackbarComponent],
+  declarations: [SignupComponent, SignupDialogComponent, SignupSnackbarComponent, UnapprovedUserComponent],
   imports: [
     ReactiveFormsModule,
     MatInputModule,
