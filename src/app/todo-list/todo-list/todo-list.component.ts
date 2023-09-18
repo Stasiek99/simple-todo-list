@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {Observable, of} from "rxjs";
 
 import {TodoInterface} from "../../shared/todo.interface";
 import {TodoListService} from "../services/todo-list.service";
@@ -17,21 +18,22 @@ export class TodoListComponent implements OnInit {
   todosArray: TodoInterface[] = [];
   editingIndex: number | null = null;
   selectedUser: UserInterface | null = null;
-  currentUser: UserInterface | null = null;
+  currentUser$: Observable<UserInterface | null> = of(null);
 
   constructor(private todoListService: TodoListService, private router: Router, private currentUserService: CurrentUserService, private route: ActivatedRoute, private userService: UserService) {
   }
 
   ngOnInit(): void {
+    this.currentUser$ = this.currentUserService.currentUserSubject.asObservable();
+
     this.route.params.subscribe(params => {
       const userId = params["userId"];
       if (userId) {
         this.selectedUser = this.userService.getUserById(userId);
       } else {
-        this.currentUser = this.currentUserService.getCurrentUser();
-        if (this.currentUser) {
-          this.selectedUser = this.currentUser;
-        }
+        this.currentUser$.subscribe((currentUser) => {
+          this.selectedUser = currentUser;
+        })
       }
       if (this.selectedUser) {
         this.todoListService.loadTodosFromLocalStorage(this.selectedUser.id);

@@ -41,7 +41,7 @@ export class UserLocalStorageService {
     const userList = this.getUserList();
     const updatedList = userList.filter(user => user.id !== userToDelete.id);
     this.setUserList(updatedList);
-    this.currentLocalStorageService.deleteCurrentUser(userToDelete);
+    this.currentLocalStorageService.deleteCurrentUser();
   }
 
   approveUser(userToApprove: UserInterface): void {

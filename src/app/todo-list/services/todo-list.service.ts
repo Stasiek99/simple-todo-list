@@ -18,7 +18,7 @@ export class TodoListService {
       this.loadTodosFromLocalStorage(this.currentUserId);
       if (this.todosMap[this.currentUserId]) {
         this.todosMap[this.currentUserId].forEach((todo) => {
-            todo.editing = false;
+          todo.editing = false;
         });
         this.saveTodosToLocalStorage(this.currentUserId);
       }

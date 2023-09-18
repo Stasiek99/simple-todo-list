@@ -1,53 +1,45 @@
-import {EventEmitter, Injectable} from "@angular/core";
+import {Injectable} from "@angular/core";
 
 import {UserInterface} from "../../user/interfaces/user.interface";
 import {CurrentLocalStorageService} from "../../user/services/current-local-storage.service";
 import {UserService} from "../../user/services/user.service";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable({
   providedIn: "root"
 })
 
 export class CurrentUserService {
-  private userChanged = new EventEmitter<UserInterface | null>();
+  currentUserSubject = new BehaviorSubject<UserInterface | null>(null);
 
   constructor(private userService: UserService, private currentLocalStorageService: CurrentLocalStorageService) {
+    const userId: string | null = this.getCurrentUserId();
+    if (userId) this.setCurrentUserById(userId);
   }
 
-  getCurrentUser(): UserInterface | null {
-    const userId: string | null = this.getCurrentUserId();
-    if (userId) {
-      const users: UserInterface[] = this.userService.getUsers();
-      const currentUser = this.findCurrentUser(users, userId);
-      return currentUser ? {...currentUser} : null;
-    }
-    return null;
+  getCurrentUser(): Observable<UserInterface | null> {
+   return this.currentUserSubject.asObservable();
   }
 
   setCurrentUser(user: UserInterface | null): void {
     if (user) {
       this.currentLocalStorageService.setCurrentUserId(user.id);
     }
-    this.userChanged.emit(user);
+    this.currentUserSubject.next(user);
   }
 
   logout(): void {
-    const currentUser = this.getCurrentUser();
-    if (currentUser) this.currentLocalStorageService.deleteCurrentUser(currentUser);
-    this.userChanged.emit(null);
+    this.currentLocalStorageService.deleteCurrentUser();
+    this.currentUserSubject.next(null);
   }
 
   getCurrentUserId(): string | null {
     return this.currentLocalStorageService.getCurrentUserId();
   }
 
-  getUserChangedEmitter(): EventEmitter<UserInterface | null> {
-    return this.userChanged;
-  }
-
-  private findCurrentUser(users: UserInterface[], userId: string): UserInterface | null {
-    const user: UserInterface | undefined = users.find((user) => user.id === userId);
-    return user || null;
-  }
-
+ setCurrentUserById(userId: string): void {
+    const users: UserInterface[] = this.userService.getUsers();
+    const currentUser = users.find(user => user.id === userId) || null;
+    this.currentUserSubject.next(currentUser);
+ }
 }
