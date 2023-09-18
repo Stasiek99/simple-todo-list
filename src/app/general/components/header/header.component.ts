@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from "rxjs";
 
 import {UserInterface} from "../../../user/interfaces/user.interface";
 import {CurrentUserService} from "../../../signup/services/current-user.service";
@@ -8,16 +9,22 @@ import {CurrentUserService} from "../../../signup/services/current-user.service"
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   currentUser: UserInterface | null = null;
+  private currentUserSubscription: Subscription | undefined;
 
   constructor(private currentUserService: CurrentUserService) {
   }
 
   ngOnInit(): void {
-    this.currentUser = this.currentUserService.getCurrentUser();
-    this.currentUserService.getUserChangedEmitter().subscribe((user: UserInterface) => {
+    this.currentUserSubscription = this.currentUserService.currentUserSubject.subscribe((user: UserInterface | null) => {
       this.currentUser = user;
-    });
+    })
+  }
+
+  ngOnDestroy(): void {
+    if (this.currentUserSubscription){
+      this.currentUserSubscription.unsubscribe();
+    }
   }
 }

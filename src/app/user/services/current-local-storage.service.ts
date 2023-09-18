@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
 
-import {UserInterface} from "../interfaces/user.interface";
-
 @Injectable({
   providedIn: 'root'
 })
@@ -17,10 +15,7 @@ export class CurrentLocalStorageService {
     window.localStorage.setItem(this.selectedUserKey, userId);
   }
 
-  deleteCurrentUser(userToDelete: UserInterface): void {
-    const currentUserId: string | null = this.getCurrentUserId();
-    if (userToDelete.id === currentUserId) {
+  deleteCurrentUser(): void {
       window.localStorage.removeItem(this.selectedUserKey);
-    }
   }
 }
