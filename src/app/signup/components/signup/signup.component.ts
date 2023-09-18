@@ -24,7 +24,7 @@ export class SignupComponent {
     "email": new FormControl(null, Validators.required)
   });
 
-  durationInSeconds: number = 3;
+  durationInSeconds: number = 2;
 
   constructor(private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar, private signupService: SignupService, private todoListService: TodoListService) {
   }
@@ -54,7 +54,7 @@ export class SignupComponent {
     const userId: string | null = this.signupService.register(payload);
     if (userId) {
       this.todoListService.initializeUserTodos(userId);
-      this.router.navigate([`/users/${userId}`])
+      this.router.navigate([`unapproved`])
     } else {
       console.log("Kolego, coś poszło nie tak")
     }
