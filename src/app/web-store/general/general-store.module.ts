@@ -13,6 +13,8 @@ import {StoreHeaderComponent} from "./components/store-header/store-header.compo
 import {StoreHeaderAdminComponent} from "./components/store-header/store-header-admin/store-header-admin.component";
 import {StoreHeaderNoUserComponent} from './components/store-header/store-header-no-user/store-header-no-user.component';
 import {MatSidenavModule} from "@angular/material/sidenav";
+import { ProductsHeaderComponent } from './components/store-home/components/products-header/products-header.component';
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import {MatSidenavModule} from "@angular/material/sidenav";
     StoreHeaderUserComponent,
     StoreHeaderComponent,
     StoreHeaderAdminComponent,
-    StoreHeaderNoUserComponent
+    StoreHeaderNoUserComponent,
+    ProductsHeaderComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +33,8 @@ import {MatSidenavModule} from "@angular/material/sidenav";
     MatToolbarModule,
     MatBadgeModule,
     RouterLink,
-    MatSidenavModule
+    MatSidenavModule,
+    MatCardModule
   ]
 })
 export class GeneralStoreModule {
