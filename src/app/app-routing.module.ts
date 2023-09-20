@@ -6,12 +6,22 @@ import {PageNotFoundComponent} from "./todo-list/general/components/page-not-fou
 import {AdminComponent} from "./todo-list/auth/components/admin/admin.component";
 import {AdminGuard} from "./todo-list/auth/guards/admin.guard";
 import {UnapprovedUserComponent} from "./todo-list/signup/components/unapproved-user/unapproved-user.component";
+import {StoreHeaderUserComponent} from "./web-store/general/components/store-header/store-header-user/store-header-user.component";
+import {
+  StoreHeaderNoUserComponent
+} from "./web-store/general/components/store-header/store-header-no-user/store-header-no-user.component";
+import {
+  StoreHeaderAdminComponent
+} from "./web-store/general/components/store-header/store-header-admin/store-header-admin.component";
 
 export const routeConfig: Routes = [
   {path: "", redirectTo: "home", pathMatch: "full"},
   {path: "home", component: HomeComponent},
   {path: "page-not-found", component: PageNotFoundComponent},
   {path: "unapproved", component: UnapprovedUserComponent},
+  {path: "storeheader", component: StoreHeaderUserComponent},
+  {path: "storeheaderno", component: StoreHeaderNoUserComponent},
+  {path: "storeheaderadmin", component: StoreHeaderAdminComponent},
   {
     path: "todolist/:userId",
     loadChildren: () => import("./todo-list/todo-list/todo-list-routing.module").then((m) => m.TodoListRoutingModule)

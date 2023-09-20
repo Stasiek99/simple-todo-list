@@ -7,6 +7,8 @@ import {AuthModule} from "./todo-list/auth/auth.module";
 import {GeneralModule} from "./todo-list/general/general.module";
 import {UserModule} from "./todo-list/user/user.module";
 import {TodoListModule} from "./todo-list/todo-list/todo-list.module";
+import {CartModule} from "./web-store/cart/cart.module";
+import {GeneralStoreModule} from "./web-store/general/general-store.module";
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import {TodoListModule} from "./todo-list/todo-list/todo-list.module";
     SignupModule,
     AuthModule,
     GeneralModule,
-    UserModule
+    UserModule,
+    CartModule,
+    GeneralStoreModule
   ],
   bootstrap: [AppComponent]
 })

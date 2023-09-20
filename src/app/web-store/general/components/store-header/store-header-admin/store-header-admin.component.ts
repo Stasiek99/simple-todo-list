@@ -2,15 +2,16 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
 
-import {CurrentUserService} from "../../../../signup/services/current-user.service";
-import {UserInterface} from "../../../../user/interfaces/user.interface";
+import {UserInterface} from "../../../../../todo-list/user/interfaces/user.interface";
+import {CurrentUserService} from "../../../../../todo-list/signup/services/current-user.service";
 
 @Component({
-  selector: 'app-header-user',
-  templateUrl: './header-user.component.html',
-  styleUrls: ['./header-user.component.scss']
+  selector: 'app-store-header-admin',
+  templateUrl: './store-header-admin.component.html',
+  styleUrls: ['./store-header-admin.component.scss']
 })
-export class HeaderUserComponent implements OnInit, OnDestroy {
+export class StoreHeaderAdminComponent implements OnInit, OnDestroy{
+  itemsQuantity = 1;
   userId: string | null = null;
   currentUser: UserInterface | null = null;
   private currentUserSubscription: Subscription | undefined;

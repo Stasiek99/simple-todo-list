@@ -1,0 +1,25 @@
+<header>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <a routerLink="/" class="app-title">
+        <span>Store App</span>
+      </a>
+      <div class="user-info">
+        <span>Hello Admin</span>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon [matBadge]="itemsQuantity" [matBadgeHidden]="!itemsQuantity" matBadgeColor="warn">shopping_cart
+          </mat-icon>
+        </button>
+        <button mat-mini-fab color="#FBEAEB" [matMenuTriggerFor]="menu">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <mat-menu #menu>
+        <button mat-menu-item routerLink="/admin">Admin Dashboard</button>
+        <button mat-menu-item routerLink="/users">List of Users</button>
+        <button mat-menu-item [routerLink]="'/todolist/' + userId">Go to Todo List App</button>
+        <button mat-menu-item (click)="onLogOutClicked()">Log Out</button>
+      </mat-menu>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</header>

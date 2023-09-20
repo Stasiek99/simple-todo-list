@@ -1,16 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {UserInterface} from "../../../../../todo-list/user/interfaces/user.interface";
 import {Subscription} from "rxjs";
-
-import {CurrentUserService} from "../../../../signup/services/current-user.service";
-import {UserInterface} from "../../../../user/interfaces/user.interface";
+import {CurrentUserService} from "../../../../../todo-list/signup/services/current-user.service";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-header-user',
-  templateUrl: './header-user.component.html',
-  styleUrls: ['./header-user.component.scss']
+  selector: 'app-store-header-user',
+  templateUrl: './store-header-user.component.html',
+  styleUrls: ['./store-header-user.component.scss']
 })
-export class HeaderUserComponent implements OnInit, OnDestroy {
+export class StoreHeaderUserComponent implements OnInit, OnDestroy{
+  itemsQuantity = 1;
   userId: string | null = null;
   currentUser: UserInterface | null = null;
   private currentUserSubscription: Subscription | undefined;
@@ -21,13 +21,13 @@ export class HeaderUserComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.currentUserSubscription = this.currentUserService.currentUserSubject.subscribe((user: UserInterface | null) => {
       this.currentUser = user;
-      this.userId = user ? user.id : null;
-    });
+      this.userId = user ? user.id : null
+    })
   }
 
   onLogOutClicked(): void {
     this.currentUserService.logout();
-    this.router.navigate(["/home"])
+    this.router.navigate(["/home"]);
   }
 
   ngOnDestroy(): void {
@@ -35,4 +35,5 @@ export class HeaderUserComponent implements OnInit, OnDestroy {
       this.currentUserSubscription.unsubscribe();
     }
   }
+
 }
