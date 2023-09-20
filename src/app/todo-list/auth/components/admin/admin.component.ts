@@ -32,6 +32,6 @@ export class AdminComponent implements OnInit {
   }
 
   redirectToHomePage(): void {
-    this.router.navigate(["/", "home"])
+    this.router.navigate(["/", "store-home"])
   }
 }

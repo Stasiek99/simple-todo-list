@@ -6,14 +6,34 @@
       </a>
       <div class="user-info">
         <span>Hello {{ currentUser?.name }}</span>
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon [matBadge]="itemsQuantity" [matBadgeHidden]="!itemsQuantity" matBadgeColor="warn">shopping_cart</mat-icon>
+        <button mat-icon-button [matMenuTriggerFor]="shopping">
+          <mat-icon [matBadge]="itemsQuantity" [matBadgeHidden]="!itemsQuantity" matBadgeColor="warn">shopping_cart
+          </mat-icon>
         </button>
         <button mat-mini-fab color="#FBEAEB" [matMenuTriggerFor]="menu">
           <mat-icon>menu</mat-icon>
         </button>
-
       </div>
+      <mat-menu #shopping>
+        <div class="cart__link">
+          <span>1 Items</span>
+          <a routerLink="cart">View Cart</a>
+        </div>
+        <div class="cart__products">
+          <div>
+            Keyboard x 1
+            <span>{{"15" | currency}}</span>
+          </div>
+          <div class="cart__total">
+            Total:
+            <span>{{"30" | currency}}</span>
+          </div>
+          <div class="cart__buttons">
+            <button class="cart__button__remove"></button>
+            <button class="cart__button" routerLink="cart"></button>
+          </div>
+        </div>
+      </mat-menu>
       <mat-menu #menu>
         <button mat-menu-item [routerLink]="'/todolist/' + userId">Go to Todo List App</button>
         <button mat-menu-item (click)="onLogOutClicked()">Log Out</button>

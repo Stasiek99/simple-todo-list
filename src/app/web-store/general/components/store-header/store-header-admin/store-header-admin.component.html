@@ -6,7 +6,7 @@
       </a>
       <div class="user-info">
         <span>Hello Admin</span>
-        <button mat-icon-button [matMenuTriggerFor]="menu">
+        <button mat-icon-button [matMenuTriggerFor]="shopping">
           <mat-icon [matBadge]="itemsQuantity" [matBadgeHidden]="!itemsQuantity" matBadgeColor="warn">shopping_cart
           </mat-icon>
         </button>
@@ -14,6 +14,26 @@
           <mat-icon>menu</mat-icon>
         </button>
       </div>
+      <mat-menu #shopping>
+        <div class="cart__link">
+          <span>1 Items</span>
+          <a routerLink="cart">View Cart</a>
+        </div>
+        <div class="cart__products">
+          <div>
+            Keyboard x 1
+            <span>{{"15" | currency}}</span>
+          </div>
+          <div class="cart__total">
+            Total:
+            <span>{{"30" | currency}}</span>
+          </div>
+          <div class="cart__buttons">
+            <button class="cart__button__remove"></button>
+            <button class="cart__button" routerLink="cart"></button>
+          </div>
+        </div>
+      </mat-menu>
       <mat-menu #menu>
         <button mat-menu-item routerLink="/admin">Admin Dashboard</button>
         <button mat-menu-item routerLink="/users">List of Users</button>

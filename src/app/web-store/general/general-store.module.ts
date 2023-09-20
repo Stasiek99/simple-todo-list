@@ -7,15 +7,16 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatBadgeModule} from "@angular/material/badge";
 
-import {HomeComponent} from "./components/home/home.component";
+import {StoreHomeComponent} from "./components/store-home/store-home.component";
 import {StoreHeaderUserComponent} from "./components/store-header/store-header-user/store-header-user.component";
 import {StoreHeaderComponent} from "./components/store-header/store-header.component";
 import {StoreHeaderAdminComponent} from "./components/store-header/store-header-admin/store-header-admin.component";
-import { StoreHeaderNoUserComponent } from './components/store-header/store-header-no-user/store-header-no-user.component';
+import {StoreHeaderNoUserComponent} from './components/store-header/store-header-no-user/store-header-no-user.component';
+import {MatSidenavModule} from "@angular/material/sidenav";
 
 @NgModule({
   declarations: [
-    HomeComponent,
+    StoreHomeComponent,
     StoreHeaderUserComponent,
     StoreHeaderComponent,
     StoreHeaderAdminComponent,
@@ -28,7 +29,8 @@ import { StoreHeaderNoUserComponent } from './components/store-header/store-head
     MatMenuModule,
     MatToolbarModule,
     MatBadgeModule,
-    RouterLink
+    RouterLink,
+    MatSidenavModule
   ]
 })
 export class GeneralStoreModule {
