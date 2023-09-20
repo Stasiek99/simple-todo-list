@@ -4,7 +4,6 @@ import {Subscription} from "rxjs";
 
 import {UserInterface} from "../../../../user/interfaces/user.interface";
 import {CurrentUserService} from "../../../../signup/services/current-user.service";
-import {UserService} from "../../../../user/services/user.service";
 
 @Component({
   selector: 'app-header-admin',
@@ -16,7 +15,7 @@ export class HeaderAdminComponent implements OnInit, OnDestroy {
   currentUser: UserInterface | null = null;
   private currentUserSubscription: Subscription | undefined;
 
-  constructor(private currentUserService: CurrentUserService, private userService: UserService, private router: Router) {
+  constructor(private currentUserService: CurrentUserService, private router: Router) {
   }
 
   ngOnInit(): void {
