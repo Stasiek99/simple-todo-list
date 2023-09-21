@@ -9,6 +9,8 @@ import {MatBadgeModule} from "@angular/material/badge";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatCardModule} from "@angular/material/card";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatListModule} from "@angular/material/list";
 
 import {StoreHomeComponent} from "./components/store-home/store-home.component";
 import {StoreHeaderUserComponent} from "./components/store-header/store-header-user/store-header-user.component";
@@ -17,7 +19,7 @@ import {StoreHeaderAdminComponent} from "./components/store-header/store-header-
 import {StoreHeaderNoUserComponent} from './components/store-header/store-header-no-user/store-header-no-user.component';
 import {ProductsHeaderComponent} from './components/store-home/components/products-header/products-header.component';
 import {FiltersComponent} from './components/store-home/components/filters/filters.component';
-import {MatListModule} from "@angular/material/list";
+import { ProductsComponent } from './components/store-home/components/products/products.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,11 @@ import {MatListModule} from "@angular/material/list";
     StoreHeaderAdminComponent,
     StoreHeaderNoUserComponent,
     ProductsHeaderComponent,
-    FiltersComponent
+    FiltersComponent,
+    ProductsComponent
+  ],
+  exports: [
+    StoreHeaderComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +46,8 @@ import {MatListModule} from "@angular/material/list";
     MatSidenavModule,
     MatCardModule,
     MatExpansionModule,
-    MatListModule
+    MatListModule,
+    MatGridListModule
   ]
 })
 export class GeneralStoreModule {

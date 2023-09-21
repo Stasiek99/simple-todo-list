@@ -9,6 +9,7 @@ import {UserModule} from "./todo-list/user/user.module";
 import {TodoListModule} from "./todo-list/todo-list/todo-list.module";
 import {CartModule} from "./web-store/cart/cart.module";
 import {GeneralStoreModule} from "./web-store/general/general-store.module";
+import {NgIf} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {GeneralStoreModule} from "./web-store/general/general-store.module";
     GeneralModule,
     UserModule,
     CartModule,
-    GeneralStoreModule
+    GeneralStoreModule,
+    NgIf,
   ],
   bootstrap: [AppComponent]
 })

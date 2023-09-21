@@ -1,0 +1,27 @@
+.products {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.product {
+  height: 180px;
+}
+
+.product__details {
+
+}
+
+.product__price {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 10px;
+}
+
+.product__price__info {
+  color: #dc3545;
+}
+
+.product__price__checkout {
+  color: gray;
+  justify-content: flex-start;
+}
