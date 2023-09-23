@@ -24,7 +24,7 @@ export class TodoListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentUser$ = this.currentUserService.currentUserSubject.asObservable();
+    this.currentUser$ = this.currentUserService.getCurrentUser();
 
     this.route.params.subscribe(params => {
       const userId = params["userId"];
