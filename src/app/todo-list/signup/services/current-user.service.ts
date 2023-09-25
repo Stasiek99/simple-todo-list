@@ -24,8 +24,8 @@ export class CurrentUserService {
   setCurrentUser(user: UserInterface | null): void {
     if (user) {
       this.currentLocalStorageService.setCurrentUserId(user.id);
+      this.currentUserSubject.next(user);
     }
-    this.currentUserSubject.next(user);
   }
 
   logout(): void {
