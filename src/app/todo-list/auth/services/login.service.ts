@@ -12,7 +12,10 @@ export class LoginService {
   }
 
   login(login: string, password: string): boolean {
-    const userList: UserInterface[] = this.userService.getUsers();
+    let userList: UserInterface[] = [];
+    this.userService.getUsers().subscribe(users => {
+      userList = users;
+    });
     const user = userList.find(user => user.login === login && user.password === password);
 
     if (user) {

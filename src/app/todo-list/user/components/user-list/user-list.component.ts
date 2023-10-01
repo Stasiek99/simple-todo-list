@@ -15,7 +15,13 @@ export class UserListComponent implements OnInit{
   constructor(private userService: UserService,private router: Router) {}
 
   ngOnInit(): void {
-    this.usersArray = this.userService.getUsers();
+    this.fetchUsers();
+  }
+
+  private fetchUsers(): void {
+    this.userService.getUsers().subscribe(users => {
+      this.usersArray = users;
+    })
   }
 
   redirectToUserProfile(id: string): void {

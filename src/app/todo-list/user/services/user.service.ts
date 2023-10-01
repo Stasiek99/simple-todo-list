@@ -1,4 +1,6 @@
 import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {catchError, map, Observable, of} from "rxjs";
 
 import {UserLocalStorageService} from "./user-local-storage.service";
 import {UserInterface} from "../interfaces/user.interface";
@@ -7,15 +9,25 @@ import {UserInterface} from "../interfaces/user.interface";
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private userLocalStorageService: UserLocalStorageService) {
+  private apiUrl= "http://localhost:3000/users";
+  loadedUsers: UserInterface[] = [];
+  constructor(private userLocalStorageService: UserLocalStorageService, private http: HttpClient) {
   }
 
-  getUsers(): UserInterface[] {
-    return [...this.userLocalStorageService.getUsers()];
+  getUsers(): Observable<UserInterface[]> {
+    return this.http.get<UserInterface[]>(this.apiUrl).pipe(
+      map(responseData => {
+        return responseData;
+      })
+    );
+    // return [...this.userLocalStorageService.getUsers()];
   }
 
-  getUserById(userId: string): UserInterface | null {
-    return this.userLocalStorageService.getUserById(userId);
+  getUserById(userId: string): Observable<UserInterface | null> {
+    return this.http.get<UserInterface>(`${this.apiUrl}/${userId}`).pipe(
+      catchError(() => of(null))
+    );
+    // return this.userLocalStorageService.getUserById(userId);
   }
 
   deleteUser(userToDelete: UserInterface): void {

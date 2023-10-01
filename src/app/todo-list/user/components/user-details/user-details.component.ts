@@ -20,7 +20,9 @@ export class UserDetailsComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.userId = params["id"];
       if (this.userId) {
-        this.user = this.userService.getUserById(this.userId);
+        this.userService.getUserById(this.userId).subscribe(user => {
+          this.user = user;
+        });
       } else {
         this.router.navigate(["/page-not-found"]);
       }
