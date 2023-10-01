@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
+import {BehaviorSubject, Observable} from "rxjs";
 
 import {UserInterface} from "../../user/interfaces/user.interface";
 import {CurrentLocalStorageService} from "../../user/services/current-local-storage.service";
 import {UserService} from "../../user/services/user.service";
-import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable({
   providedIn: "root"
