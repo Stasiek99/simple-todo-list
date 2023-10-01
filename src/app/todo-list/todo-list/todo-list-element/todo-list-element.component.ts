@@ -24,7 +24,9 @@ export class TodoListElementComponent implements OnInit{
     this.route.params.subscribe(params => {
       const userId = params["userId"];
       const todoId = params["todoId"];
-      this.selectedUser = this.userService.getUserById(userId);
+      this.userService.getUserById(userId).subscribe(user => {
+        this.selectedUser = user;
+      });
       if (todoId && this.selectedUser) {
         this.todoListService.loadTodosFromLocalStorage(userId);
         this.todo = this.todoListService.getTodoById(userId, todoId);

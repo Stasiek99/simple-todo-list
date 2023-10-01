@@ -29,15 +29,15 @@ export class TodoListComponent implements OnInit {
     this.route.params.subscribe(params => {
       const userId = params["userId"];
       if (userId) {
-        this.selectedUser = this.userService.getUserById(userId);
-      } else {
-        this.currentUser$.subscribe((currentUser) => {
-          this.selectedUser = currentUser;
-        })
-      }
-      if (this.selectedUser) {
-        this.todoListService.loadTodosFromLocalStorage(this.selectedUser.id);
-        this.synchronizeTodos();
+        this.userService.getUserById(userId).subscribe(user => {
+          if (user !== null) {
+            this.selectedUser = user;
+            this.todoListService.loadTodosFromLocalStorage(this.selectedUser.id);
+            this.synchronizeTodos();
+          } else {
+            this.router.navigate(["/page-not-found"]);
+          }
+        });
       } else {
         this.router.navigate(["/page-not-found"]);
       }

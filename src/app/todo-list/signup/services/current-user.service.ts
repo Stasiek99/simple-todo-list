@@ -38,8 +38,11 @@ export class CurrentUserService {
   }
 
  setCurrentUserById(userId: string): void {
-    const users: UserInterface[] = this.userService.getUsers();
-    const currentUser = users.find(user => user.id === userId) || null;
+    let usersList: UserInterface[] = [];
+    this.userService.getUsers().subscribe(users => {
+      usersList = users;
+    });
+    const currentUser = usersList.find(user => user.id === userId) || null;
     this.currentUserSubject.next(currentUser);
  }
 }

@@ -17,18 +17,24 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.usersArray = this.userService.getUsers();
+    this.fetchUsers();
   }
 
   deleteUser(deletedUser: UserInterface): void {
     this.userService.deleteUser(deletedUser);
-    this.usersArray = this.userService.getUsers();
+    this.fetchUsers();
     this.todoListService.deleteUserTodos(deletedUser.id);
   }
 
   approveUser(user: UserInterface): void {
     this.userService.approveUser(user);
-    this.usersArray = this.userService.getUsers();
+    this.fetchUsers();
+  }
+
+  private fetchUsers(): void {
+    this.userService.getUsers().subscribe(users => {
+      this.usersArray = users;
+    });
   }
 
   redirectToHomePage(): void {
