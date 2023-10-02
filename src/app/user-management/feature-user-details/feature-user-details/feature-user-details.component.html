@@ -1,0 +1,6 @@
+<ng-container *ngIf="user$ | async as user; else noUser">
+  <app-user-details [user]="user" (gotoTodolist)="redirectToTodoList(user.id)"></app-user-details>
+</ng-container>
+<ng-template #noUser>
+  <p class="user-not-created">No user has been created</p>
+</ng-template>

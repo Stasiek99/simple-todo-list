@@ -1,9 +1,9 @@
 import { Observable } from "rxjs";
-import { EntityId } from "../utils/entity-id.type";
+import { EntityId } from "../../../contracts/utils/entity-id.type";
 
 export type HttpQueryParams<T extends SimpleObjectWithId> = Partial<T>
 
-export type SimpleObjectWithId = Record<string, unknown> & { id: EntityId };
+export type SimpleObjectWithId = { id: EntityId };
 
 export interface ResourceService<T extends SimpleObjectWithId> {
   getFirst?(params?: HttpQueryParams<T>): Observable<T | null>;
@@ -12,7 +12,7 @@ export interface ResourceService<T extends SimpleObjectWithId> {
 
   post?(resource: Omit<T, "id">): Observable<T>;
 
-  getById?(id: EntityId): Observable<T>;
+  getById?(id: EntityId): Observable<T | null>;
 
   patch?(id: EntityId, value: Partial<Omit<T, "id">>): Observable<T>;
 

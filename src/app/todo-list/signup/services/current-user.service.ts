@@ -1,9 +1,11 @@
-import {Injectable} from "@angular/core";
+import { Injectable } from "@angular/core";
 
-import {UserInterface} from "../../user/interfaces/user.interface";
-import {CurrentLocalStorageService} from "../../user/services/current-local-storage.service";
-import {UserService} from "../../user/services/user.service";
-import {BehaviorSubject, Observable} from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
+import { UserInterface } from "../../../user-management/data-access/_legacy/interfaces/user.interface";
+import { UserService } from "../../../user-management/data-access/_legacy/services/user.service";
+import {
+  CurrentLocalStorageService
+} from "../../../user-management/data-access/_legacy/services/current-local-storage.service";
 
 @Injectable({
   providedIn: "root"
@@ -18,7 +20,7 @@ export class CurrentUserService {
   }
 
   getCurrentUser(): Observable<UserInterface | null> {
-   return this.currentUserSubject.asObservable();
+    return this.currentUserSubject.asObservable();
   }
 
   setCurrentUser(user: UserInterface | null): void {
@@ -37,9 +39,9 @@ export class CurrentUserService {
     return this.currentLocalStorageService.getCurrentUserId();
   }
 
- setCurrentUserById(userId: string): void {
+  setCurrentUserById(userId: string): void {
     const users: UserInterface[] = this.userService.getUsers();
     const currentUser = users.find(user => user.id === userId) || null;
     this.currentUserSubject.next(currentUser);
- }
+  }
 }

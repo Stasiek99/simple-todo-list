@@ -1,26 +1,31 @@
-import {Injectable} from "@angular/core";
+import { Injectable } from "@angular/core";
 
-import {TodoInterface} from "../../shared/todo.interface";
-import {TodoListLocalStorageService} from "./todo-list-local-storage.service";
-import {CurrentUserService} from "../../signup/services/current-user.service";
+import { TodoInterface } from "../../shared/todo.interface";
+import { TodoListLocalStorageService } from "./todo-list-local-storage.service";
+import { isDefined } from "../../../core/utils/is-defined.function";
 
 @Injectable({
   providedIn: "root"
 })
-
 export class TodoListService {
   private todosMap: { [userId: string]: TodoInterface[] } = {};
-  private readonly currentUserId: string | null = null;
+  private currentUserId: string | null = null;
 
-  constructor(private todoListLocalStorageService: TodoListLocalStorageService, private currentUserService: CurrentUserService) {
-    this.currentUserId = this.currentUserService.getCurrentUserId();
-    if (this.currentUserId) {
-      this.loadTodosFromLocalStorage(this.currentUserId);
-      if (this.todosMap[this.currentUserId]) {
-        this.todosMap[this.currentUserId].forEach((todo) => {
-          todo.editing = false;
-        });
-        this.saveTodosToLocalStorage(this.currentUserId);
+  constructor(private todoListLocalStorageService: TodoListLocalStorageService) {
+  }
+
+  // todo temporary solution
+  init(currentUserId: string): void {
+    if (!isDefined(this.currentUserId)) {
+      this.currentUserId = currentUserId;
+      if (this.currentUserId) {
+        this.loadTodosFromLocalStorage(this.currentUserId);
+        if (this.todosMap[this.currentUserId]) {
+          this.todosMap[this.currentUserId].forEach((todo) => {
+            todo.editing = false;
+          });
+          this.saveTodosToLocalStorage(this.currentUserId);
+        }
       }
     }
   }
@@ -35,14 +40,14 @@ export class TodoListService {
 
   saveUpdatedTodoToLocalStorage(userId: string, updatedTodo: TodoInterface): void {
     const userTodos: TodoInterface[] = this.todosMap[userId];
-    if(!userTodos) return;
+    if (!userTodos) return;
 
     const updatedTodos = userTodos.map((todo) => {
       if (todo.id === updatedTodo.id) {
         return {
           ...todo,
           status: updatedTodo.status
-        }
+        };
       }
       return todo;
     });

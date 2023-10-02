@@ -1,13 +1,13 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Subscription } from "rxjs";
 
-import {UserInterface} from "../../../user/interfaces/user.interface";
-import {CurrentUserService} from "../../../signup/services/current-user.service";
+import { CurrentUserService } from "../../../signup/services/current-user.service";
+import { UserInterface } from "../../../../user-management/data-access/_legacy/interfaces/user.interface";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: "app-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   currentUser: UserInterface | null = null;
@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.currentUserSubscription){
+    if (this.currentUserSubscription) {
       this.currentUserSubscription.unsubscribe();
     }
   }

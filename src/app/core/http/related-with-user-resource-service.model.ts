@@ -1,5 +1,5 @@
 import { Observable } from "rxjs";
-import { EntityId } from "../utils/entity-id.type";
+import { EntityId } from "../../../contracts/utils/entity-id.type";
 import { HttpQueryParams, ResourceService, SimpleObjectWithId } from "./resource-service.model";
 
 

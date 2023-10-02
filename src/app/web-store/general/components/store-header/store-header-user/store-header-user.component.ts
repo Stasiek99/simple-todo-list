@@ -1,32 +1,32 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {UserInterface} from "../../../../../todo-list/user/interfaces/user.interface";
-import {Subscription} from "rxjs";
-import {CurrentUserService} from "../../../../../todo-list/signup/services/current-user.service";
-import {Router} from "@angular/router";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Subscription } from "rxjs";
+import { Router } from "@angular/router";
+import { AuthFacade } from "../../../../../auth";
+import { UserContract } from "../../../../../../contracts/user.contract";
 
 @Component({
-  selector: 'app-store-header-user',
-  templateUrl: './store-header-user.component.html',
-  styleUrls: ['./store-header-user.component.scss']
+  selector: "app-store-header-user",
+  templateUrl: "./store-header-user.component.html",
+  styleUrls: ["./store-header-user.component.scss"]
 })
-export class StoreHeaderUserComponent implements OnInit, OnDestroy{
+export class StoreHeaderUserComponent implements OnInit, OnDestroy {
   itemsQuantity = 1;
-  userId: string | null = null;
-  currentUser: UserInterface | null = null;
+  userId: number | null = null;
+  currentUser: UserContract | null = null;
   private currentUserSubscription: Subscription | undefined;
 
-  constructor(private currentUserService: CurrentUserService, private router: Router) {
+  constructor(private authFacade: AuthFacade, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.currentUserSubscription = this.currentUserService.getCurrentUser().subscribe((user: UserInterface | null) => {
+    this.currentUserSubscription = this.authFacade.currentUser$.subscribe((user: UserContract | null) => {
       this.currentUser = user;
-      this.userId = user ? user.id : null
-    })
+      this.userId = user ? user.id : null;
+    });
   }
 
   onLogOutClicked(): void {
-    this.currentUserService.logout();
+    this.authFacade.logout();
     this.router.navigate(["/store-home"]);
   }
 

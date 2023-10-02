@@ -1,13 +1,13 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Subscription } from "rxjs";
 
-import {UserInterface} from "../../../../todo-list/user/interfaces/user.interface";
-import {CurrentUserService} from "../../../../todo-list/signup/services/current-user.service";
+import { CurrentUserService } from "../../../../todo-list/signup/services/current-user.service";
+import { UserInterface } from "../../../../user-management/data-access/_legacy/interfaces/user.interface";
 
 @Component({
-  selector: 'app-store-header',
-  templateUrl: './store-header.component.html',
-  styleUrls: ['./store-header.component.scss']
+  selector: "app-store-header",
+  templateUrl: "./store-header.component.html",
+  styleUrls: ["./store-header.component.scss"]
 })
 export class StoreHeaderComponent implements OnInit, OnDestroy {
   currentUser: UserInterface | null = null;
