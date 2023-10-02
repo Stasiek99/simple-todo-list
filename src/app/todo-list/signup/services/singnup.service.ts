@@ -1,33 +1,37 @@
 import {Injectable} from "@angular/core";
 
 import {UserInterface} from "../../user/interfaces/user.interface";
-import {UserLocalStorageService} from "../../user/services/user-local-storage.service";
 import {CurrentUserService} from "./current-user.service";
+import {UserService} from "../../user/services/user.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class SignupService {
-  constructor(private userLocalStorageService: UserLocalStorageService, private currentUserService: CurrentUserService) {
+  constructor(private currentUserService: CurrentUserService, private userService: UserService) {
   }
 
   register(payload: UserInterface): string | null {
-    const userId: string = this.generateId();
-    payload.approved = false;
-    const user: UserInterface = this.createUser(payload, userId);
-    this.userLocalStorageService.addUser(user);
-    this.currentUserService.setCurrentUser(user);
-    return userId;
+    const newUser: UserInterface = this.createUser(payload);
+    this.userService.addUser(newUser).subscribe(addedUser => {
+      console.log("Nowy użytkownik został dodany", addedUser);
+    });
+    this.currentUserService.setCurrentUser(newUser);
+    return newUser.id;
   }
 
-  private createUser(payload: UserInterface, userId: string): UserInterface {
+  private createUser(payload: UserInterface): UserInterface {
     return {
-      ...payload,
-      id: userId
+      id: payload.id,
+      name: payload.name,
+      login: payload.login,
+      password: payload.password,
+      email: payload.email,
+      approved: false
     }
   }
 
-  private generateId(): string {
-    return Date.now().toString()
-  }
+  // private generateId(): string {
+  //   return Date.now().toString()
+  // }
 }

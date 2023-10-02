@@ -21,13 +21,17 @@ export class AdminComponent implements OnInit {
   }
 
   deleteUser(deletedUser: UserInterface): void {
-    this.userService.deleteUser(deletedUser);
+    this.userService.deleteUser(deletedUser).subscribe(usertoDelete => {
+      console.log(usertoDelete);
+    });
     this.fetchUsers();
     this.todoListService.deleteUserTodos(deletedUser.id);
   }
 
   approveUser(user: UserInterface): void {
-    this.userService.approveUser(user);
+    this.userService.approveUser(user).subscribe(updatedUser => {
+      console.log(updatedUser);
+    });
     this.fetchUsers();
   }
 
