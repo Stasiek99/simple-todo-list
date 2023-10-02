@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import {Component} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
 
-import { LoginService } from "../../services/login.service";
-import { CurrentUserService } from "../../../signup/services/current-user.service";
+import {LoginService} from "../../services/login.service";
+import {CurrentUserService} from "../../../signup/services/current-user.service";
 
 @Component({
   selector: 'app-login',
@@ -16,21 +16,33 @@ export class LoginComponent {
     "password": new FormControl(null, Validators.required)
   });
 
-  constructor(private router: Router, private loginService: LoginService, private currentUserService: CurrentUserService) {}
+  constructor(private router: Router, private loginService: LoginService, private currentUserService: CurrentUserService) {
+  }
 
   onLogin(): void {
-    const { login, password } = this.loginForm.value;
-    const loginSuccessful: boolean = this.loginService.login(login, password);
-
-    if (loginSuccessful) {
-      const userId: string | null = this.currentUserService.getCurrentUserId();
-      if(userId) {
-        this.router.navigate(["/users", userId]);
+    const {login, password} = this.loginForm.value;
+    this.loginService.login(login, password).subscribe(loginStatus => {
+      if (loginStatus) {
+        const userId: string | null = this.currentUserService.getCurrentUserId();
+        if (userId) {
+          this.router.navigate(["/users", userId]);
+        } else {
+          console.log("Błąd przy pobieraniu identyfikatora użytkownika");
+        }
       } else {
-        console.log("Błąd przy pobieraniu identyfikatora użytkownika");
+        console.log("Nieprawidłowy login lub hasło");
       }
-    } else {
-      console.log("Nieprawidłowy login lub hasło");
-    }
+    });
+
+    // if (loginSuccessful) {
+    //   const userId: string | null = this.currentUserService.getCurrentUserId();
+    //   if(userId) {
+    //     this.router.navigate(["/users", userId]);
+    //   } else {
+    //     console.log("Błąd przy pobieraniu identyfikatora użytkownika");
+    //   }
+    // } else {
+    //
+    // }
   }
 }

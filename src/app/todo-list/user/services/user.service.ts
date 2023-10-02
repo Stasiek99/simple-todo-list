@@ -10,7 +10,6 @@ import {UserInterface} from "../interfaces/user.interface";
 })
 export class UserService {
   private apiUrl= "http://localhost:3000/users";
-  loadedUsers: UserInterface[] = [];
   constructor(private userLocalStorageService: UserLocalStorageService, private http: HttpClient) {
   }
 
@@ -30,11 +29,17 @@ export class UserService {
     // return this.userLocalStorageService.getUserById(userId);
   }
 
-  deleteUser(userToDelete: UserInterface): void {
-    this.userLocalStorageService.deleteUser(userToDelete);
+  addUser(newUser: UserInterface): Observable<UserInterface> {
+    return this.http.post<UserInterface>(`${this.apiUrl}`, newUser);
   }
 
-  approveUser(user: UserInterface): void {
-    this.userLocalStorageService.approveUser(user);
+  deleteUser(userToDelete: UserInterface): Observable<UserInterface> {
+    return this.http.delete<UserInterface>(`${this.apiUrl}/${userToDelete.id}`);
+  }
+
+  approveUser(user: UserInterface): Observable<UserInterface> {
+    const updatedUser = { ...user, approved: true }
+    return this.http.put<UserInterface>(`${this.apiUrl}/${user.id}`, updatedUser);
+    // this.userLocalStorageService.approveUser(user);
   }
 }
