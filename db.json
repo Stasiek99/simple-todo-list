@@ -16,12 +16,12 @@
       "approved": true
     },
     {
-      "name": "aefeewaf",
-      "login": "admin",
-      "password": "admin",
-      "email": "waefeaf",
-      "approved": false,
-      "id": 1
+      "id": 1,
+      "name": "user",
+      "login": "user",
+      "password": "user",
+      "email": "user@user.com",
+      "approved": true
     }
   ],
   "todos": [
@@ -37,6 +37,20 @@
       "userId": 0,
       "description": "todo 2 adm",
       "status": "done",
+      "date": "2023-09-24T12:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "description": "todo 1 usr",
+      "status": "done",
+      "date": "2023-09-23T12:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "userId": 1,
+      "description": "todo 2 usr",
+      "status": "undone",
       "date": "2023-09-24T12:00:00.000Z"
     }
   ]

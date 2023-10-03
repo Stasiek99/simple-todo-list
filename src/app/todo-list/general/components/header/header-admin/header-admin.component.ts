@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {Subscription} from "rxjs";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
+import { UserInterface } from "../../../../../user-management/data-access/_legacy/interfaces/user.interface";
+import { CurrentUserService } from "../../../../signup/services/current-user.service";
 
-import {UserInterface} from "../../../../user/interfaces/user.interface";
-import {CurrentUserService} from "../../../../signup/services/current-user.service";
 
 @Component({
-  selector: 'app-header-admin',
-  templateUrl: './header-admin.component.html',
-  styleUrls: ['./header-admin.component.scss']
+  selector: "app-header-admin",
+  templateUrl: "./header-admin.component.html",
+  styleUrls: ["./header-admin.component.scss"]
 })
 export class HeaderAdminComponent implements OnInit, OnDestroy {
   userId: string | null = null;
@@ -27,7 +27,7 @@ export class HeaderAdminComponent implements OnInit, OnDestroy {
 
   onLogOutClicked(): void {
     this.currentUserService.logout();
-    this.router.navigate(["/store-home"])
+    this.router.navigate(["/store-home"]);
   }
 
   ngOnDestroy(): void {

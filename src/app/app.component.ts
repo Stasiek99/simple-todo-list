@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { AuthFacade } from "./auth/data-access";
 
 @Component({
   selector: "app-root",
@@ -9,7 +10,7 @@ import { HttpClient } from "@angular/common/http";
 export class AppComponent {
   isTodoApp = true;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private auth: AuthFacade) {
     this.testJsonServer();
   }
 
