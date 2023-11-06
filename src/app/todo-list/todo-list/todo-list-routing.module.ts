@@ -4,14 +4,14 @@ import { RouterModule, Routes } from "@angular/router";
 
 import { TodoListComponent } from "./todo-list/todo-list.component";
 import { TodoListElementComponent } from "./todo-list-element/todo-list-element.component";
-import { AuthGuard } from "../../auth/data-access/guards/auth.guard";
+import { ActivatedUserGuard } from "../../auth/data-access/guards/activated-user.guard";
 import { TodoListGuard } from "./guards/todo-list.guard";
 import { todoListOwner } from "./consts/todo-list-owner.const";
 
 const routes: Routes = [
   {
     path: `:${todoListOwner}`,
-    canActivate: [AuthGuard, TodoListGuard],
+    canActivate: [ActivatedUserGuard, TodoListGuard],
     // TODO  fetch selecteduser from url param if not exist in state (impl in component)
     children: [
       {

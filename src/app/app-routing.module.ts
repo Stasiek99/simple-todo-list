@@ -16,13 +16,13 @@ import {
   StoreHeaderAdminComponent
 } from "./web-store/general/components/store-header/store-header-admin/store-header-admin.component";
 import { StoreHomeComponent } from "./web-store/general/components/store-home/store-home.component";
-import { NoUserGuard, UserGuard } from "./auth";
+import { NoUserGuard, AuthGuard } from "./auth";
 
 const authenticationRoutes: Routes = [
   {
     path: "",
     pathMatch: "prefix",
-    canActivate: [UserGuard],
+    canActivate: [AuthGuard],
     children: [
       { path: "unapproved", component: UnapprovedUserComponent },
       { path: "storeheader", component: StoreHeaderUserComponent },
@@ -55,7 +55,7 @@ export const routeConfig: Routes = [
   { path: "", redirectTo: "store-home", pathMatch: "full" },
   {
     path: "users",
-    canActivate: [UserGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import("./user-management/shell/shell-user-management.module").then((m) => m.ShellUserManagementModule)
   },
   ...authenticationRoutes, ...noAuthenticationRoutes,
