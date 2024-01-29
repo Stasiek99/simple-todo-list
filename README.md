@@ -1,26 +1,37 @@
-# TodoList
+# TodoList App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.0.
+This project is a Todo List application generated with Angular CLI version 16.1.0.
 
-## Development server
+## Development Setup
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Clone the Repository
 
-## Code scaffolding
+```bash
+git clone https://github.com/your-username/todo-list.git
+cd todo-list
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Install Dependencies
 
-## Build
+```bash
+npm install
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Run the Server
 
-## Running unit tests
+```bash
+npm run server
+```
+The server will be running at http://localhost:3000/.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Launching the Application
 
-## Running end-to-end tests
+In a new terminal, run the following command to launch the application:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+npm run start
+```
+Navigate to http://localhost:4200/ in your web browser. The application will automatically reload if you make any changes to the source files.
 
 ## Further help
 

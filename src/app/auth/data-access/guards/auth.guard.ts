@@ -1,28 +1,28 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
-import { map, Observable } from "rxjs";
-import { UserContract } from "../../../../contracts/user.contract";
-import { AuthFacade } from "../auth.facade";
+import { first, map, Observable, switchMap } from "rxjs";
+import { filterLoadingState, LoadingState } from "../../../core/utils/loading-state-enum";
+import { AuthRoutePaths } from "../consts/auth-route-paths.enum";
+import { isDefined } from "../../../core/utils/is-defined.function";
+import { FetchCurrentUserAuthHandler } from "../services/fetch-current-user-auth.handler";
 
-
-// todo refactor -> ActivatedUserGaurd
 @Injectable({
   providedIn: "root"
 })
 export class AuthGuard implements CanActivate {
-  constructor(private currentUserService: AuthFacade, private router: Router) {
+
+  constructor(private fetchCurrentUserAuthService: FetchCurrentUserAuthHandler, private router: Router) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.currentUserService.currentUser$.pipe(
-      map((currentUser: UserContract | null) => {
-        if (currentUser && currentUser.approved) {
-          return true;
-        } else {
-          this.router.navigate(["page-not-found"]);
-          return false;
-        }
-      })
-    );
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
+    this.fetchCurrentUserAuthService.fetchCurrentUserFromStorageIfNoExistsInState();
+    return this.fetchCurrentUserAuthService.fetchCurrentUserLoadingState$
+      .pipe(
+        filterLoadingState([LoadingState.LOADED, LoadingState.ERROR]),
+        switchMap(() => this.fetchCurrentUserAuthService.userId$),
+        map(isCurrentUser => {
+          return !isDefined(isCurrentUser) ? this.router.createUrlTree(["/", AuthRoutePaths.auth]) : true;
+        }),
+        first());
   }
 }
